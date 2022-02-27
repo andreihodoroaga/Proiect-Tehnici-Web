@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="supercars, bugatti, hypercar" />
+    <meta name="description" content="Supercaruri la cel mai bun pret." />
+    <meta name="author" content="Andrei Hodoroaga" />
+    <title>Supercars</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./resurse/ico/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./resurse/ico/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./resurse/ico/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./resurse/ico/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="./resurse/ico/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <link rel="shortcut icon" href="./resurse/ico/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta
+      name="msapplication-config"
+      content="./resurse/ico/browserconfig.xml"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <h1>Supercars</h1>
+        <ul class="menu">
+          <li><a href="index.html">Acasa</a></li>
+          <li class="menu-masini">
+            <div>Masini</div>
+            <ul class="submenu">
+              <li><a href="#mclaren">McLaren</a></li>
+              <li><a href="#lamborghini">Lamborghini</a></li>
+              <li><a href="#ferrari">Ferrari</a></li>
+              <li><a href="#bugatti">Bugatti</a></li>
+            </ul>
+          </li>
+          <li><a href="./cos.html">Cos</a></li>
+          <li><a href="./despre.html">Despre</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="welcome">
+        <h2>Bine ati venit!</h2>
+        <p>
+          Descopera <b>masina sport</b> care se potriveste cel mai bine stilului
+          tau de viata! Oferim cele mai noi si rare supercaruri.
+        </p>
+      </section>
+
+      <section id="mclaren">
+        <h2>McLaren</h2>
+        <p>
+          <b>McLaren</b> creeaza masini sport luxoase si extrem de performante.
+          <b>Supercarul</b> britanic dezvolta motorul celebru de
+          <i>3994 cc</i> cu variante de 720 sau 765 de <em>cai putere</em>.
+        </p>
+        <p>
+          Gasiti mai multe detalii despre istoria brand-ului pe
+          <a href="https://www.mclaren.com/">www.mclaren.com</a>.
+        </p>
+        <p>
+          Puteti descarca toate detaliile tehnice ale modelului de mai jos
+          <a href="resurse\pdfs\McLaren_int 720S_2019.pdf" download>aici</a>.
+        </p>
+        <figure>
+          <figcaption>McLaren 720s</figcaption>
+          <img
+            srcset="resurse\imagini\poza_mclaren_300px.jpg 300w, 
+                    resurse\imagini\poza_mclaren_600px.jpg 600w
+                    resurse\imagini\poza_mclaren_1000px.jpg 1000w"
+            sizes="(max-width: 675px) 300px,
+                   (max-width: 1200px) 600px"
+            src="resurse\imagini\poza_mclaren_1000px.jpg"
+            alt="McLaren 720s"
+          />
+        </figure>
+        <div class="mclaren-iframe">
+          <iframe
+            src="https://www.youtube.com/embed/dbrF_NJNXc8"
+            name="mclaren-ifr"
+          >
+            <a target="mclaren-ifr"></a>
+          </iframe>
+        </div>
+      </section>
+
+      <section id="lamborghini">
+        <h2>Lamborghini</h2>
+      </section>
+
+      <section id="faq">
+        <h3>Faq</h3>
+        <details>
+          <summary>Cui se adreseaza acest site?</summary>
+          <p>Oricarei persoane care vrea sa se bucure de un supercar.</p>
+        </details>
+        <details>
+          <summary>Ce garantie au autovehiculele?</summary>
+          <p>
+            Garantia fiecarui supercar depinde de producator. Gasiti mai multe
+            detalii in lista specificatiilor tehnice a unei masini.
+          </p>
+        </details>
+        <details>
+          <summary>Ce supercar recomandati?</summary>
+          <p>Bugatti, Rimac sau McLaren.</p>
+        </details>
+        <br />
+      </section>
+    </main>
+
+    <footer>
+      <a href="#welcome">Inapoi la inceput</a>
+    </footer>
+  </body>
+</html>

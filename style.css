@@ -1,0 +1,41 @@
+/* Nav */
+h1 {
+  font-size: 1.75rem;
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav a,
+.menu-masini {
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+}
+
+nav > ul {
+  display: flex;
+}
+
+.menu li {
+  margin: 0 1rem;
+  font-size: 1.25rem;
+}
+
+.menu-masini:hover > .submenu {
+  display: block;
+}
+
+.submenu {
+  display: none;
+  padding: 0;
+  position: absolute;
+  z-index: 10;
+}
