@@ -38,18 +38,28 @@
       content="./resurse/ico/browserconfig.xml"
     />
     <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./resurse/css/nav.css" />
+    <link
+      rel="stylesheet"
+      href="./resurse/css/nav-500.css"
+      media="screen and (max-width: 750px)"
+    />
     <meta name="theme-color" content="#ffffff" />
   </head>
 
   <body>
-    <header>
+    <header id="top">
+      <h1>Supercars</h1>
       <nav>
-        <h1>Supercars</h1>
-        <ul class="menu">
+        <label id="hamburger" for="ch-menu">
+          <img src="resurse/imagini/Hamburger_icon_alb.png" alt="menu" />
+        </label>
+        <input id="ch-menu" type="checkbox" />
+        <ul class="meniu">
           <li><a href="index.html">Acasa</a></li>
           <li class="menu-masini">
             <div>Masini</div>
-            <ul class="submenu">
+            <ul class="submeniu animated">
               <li><a href="#mclaren">McLaren</a></li>
               <li><a href="#lamborghini">Lamborghini</a></li>
               <li><a href="#ferrari">Ferrari</a></li>
@@ -68,6 +78,99 @@
         <p>
           Descopera <b>masina sport</b> care se potriveste cel mai bine stilului
           tau de viata! Oferim cele mai noi si rare supercaruri.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
+          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
+          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
+          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
+          libero. Donec at turpis accumsan, semper dui a, viverra elit. Maecenas
+          vel est sagittis ipsum pellentesque convallis. Nulla ipsum urna,
+          facilisis eget scelerisque in, tempus eu sem. Vivamus at nisl eget
+          turpis facilisis luctus. Orci varius natoque penatibus et magnis dis
+          parturient montes, nascetur ridiculus mus. Aenean ac tellus euismod
+          nibh suscipit maximus sed in metus. Mauris in condimentum nisl, eget
+          tempor nunc.
+        </p>
+      </section>
+
+      <section class="calendar" style="min-width: 200px; min-height: 200px">
+        <h2>Calendar</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
+          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
+          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
+          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
+          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
+          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
+          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
+          libero.
+        </p>
+      </section>
+
+      <section class="tabel" style="min-width: 200px; min-height: 200px">
+        <h2>Tabel</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
+          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
+          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
+          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
+          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
+          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
+          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
+          libero.
+        </p>
+      </section>
+
+      <section class="anunturi" style="min-width: 200px; min-height: 200px">
+        <h2>Anunturi</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
+          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
+          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
+          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
+          libero.
+        </p>
+      </section>
+
+      <section class="utilizatori" style="min-width: 200px; min-height: 200px">
+        <h2>Utilizatori</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
+          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
+          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
+          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
+          libero.
+        </p>
+      </section>
+
+      <section class="date" style="min-width: 200px; min-height: 200px">
+        <h2>Date</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
+          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
+          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
+          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
+          libero.
+        </p>
+      </section>
+
+      <section class="date-site" style="min-width: 200px; min-height: 200px">
+        <h2>Date site</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
+          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
+          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
+          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
+          libero.
         </p>
       </section>
 
@@ -88,40 +191,42 @@
         </p>
         <figure>
           <figcaption>McLaren 720s</figcaption>
-          <img
-            srcset="resurse\imagini\poza_mclaren_300px.jpg 300w, 
-                    resurse\imagini\poza_mclaren_600px.jpg 600w
-                    resurse\imagini\poza_mclaren_1000px.jpg 1000w"
-            sizes="(max-width: 675px) 300px,
-                   (max-width: 1200px) 600px"
-            src="resurse\imagini\poza_mclaren_1000px.jpg"
-            alt="McLaren 720s"
-          />
+          <picture>
+            <source
+              media="(max-width: 600px)"
+              srcset="resurse\imagini\poza_mclaren_300px.jpg"
+            />
+            <source
+              media="(max-width: 1100px)"
+              srcset="resurse\imagini\poza_mclaren_600px.jpg"
+            />
+            <img
+              src="resurse\imagini\poza_mclaren_1000px.jpg"
+              alt="McLaren 720s"
+            />
+          </picture>
         </figure>
         <div class="mclaren-iframe">
           <iframe
-            width="800px"
+            width="600px"
             height="450px"
             src="https://www.youtube.com/embed/dbrF_NJNXc8"
             name="mclaren-ifr"
           >
           </iframe>
-          <br />
-          <a
-            target="mclaren-ifr"
-            href="https://www.youtube.com/embed/dbrF_NJNXc8"
-            >Top speed</a
-          >
-          <a
-            target="mclaren-ifr"
-            href="https://www.youtube.com/embed/s34FRqnJ85o"
-            >Crazy speeds 720s</a
-          >
+          <div class="iframe-links">
+            <a
+              target="mclaren-ifr"
+              href="https://www.youtube.com/embed/dbrF_NJNXc8"
+              >Top speed</a
+            >
+            <a
+              target="mclaren-ifr"
+              href="https://www.youtube.com/embed/s34FRqnJ85o"
+              >720 review</a
+            >
+          </div>
         </div>
-      </section>
-
-      <section id="lamborghini">
-        <h2>Lamborghini</h2>
       </section>
 
       <section id="faq">
@@ -172,5 +277,14 @@
         <time datetime="2022-02-27">27.02.2022</time></small
       >
     </footer>
+
+    <div class="container-go-up-btn">
+      <div class="go-up-btn">
+        <a href="#top">
+          <div class="go-up-btn-cone"></div>
+        </a>
+      </div>
+      <p class="text-informativ">To top</p>
+    </div>
   </body>
 </html>

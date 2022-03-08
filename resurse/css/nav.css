@@ -1,0 +1,126 @@
+body {
+  --inaltime-meniu: 3rem;
+  --main-bg-color: #222629;
+  --secondary-accent-color: #61892f;
+}
+
+nav ul.meniu ul {
+  /*implicit submeniul e ascuns*/
+  display: none;
+  position: absolute; /* ca sa il scot din container pe alt layer, sa nu imi deplaseze continutul cand devine vizibil*/
+  width: 100%;
+}
+nav {
+  height: var(--inaltime-meniu);
+  width: 100%;
+  top: 0;
+  padding: 0;
+  background: var(--main-bg-color);
+  z-index: 10;
+  /*ca sa fie pozitionat normal in partea de sus a containerului, sub sigla, 
+    dar apoi cand dam scroll sa ramana fix pe ecran*/
+  position: sticky;
+}
+
+nav ul.meniu > li {
+  float: left;
+  width: 150px;
+  position: relative; /* pentru ca submeniul pozitionat relativ sa aiba ca referinta parintele li*/
+}
+
+nav ul,
+nav li {
+  padding: 0;
+  margin: 0;
+}
+nav ul.meniu li {
+  /*text centrat pe orizontala*/
+  text-align: center;
+
+  /*ascundem bullets*/
+  list-style-type: none;
+  background: var(--main-bg-color);
+  cursor: pointer;
+}
+nav ul.meniu li a,
+nav ul.meniu li div {
+  text-decoration: none;
+  color: white;
+  display: block;
+  font-weight: bold;
+  /*inaltimea butonului si inaltimea liniei de text sunt identice 
+    pentru a centra textul pe verticala in element
+     - merge doar daca textul are o singura linie*/
+  height: var(--inaltime-meniu);
+  line-height: var(--inaltime-meniu);
+  outline: 1px solid black;
+}
+ul.meniu a:hover,
+ul.meniu div:hover {
+  background: var(--secondary-accent-color);
+}
+
+ul.meniu a,
+ul.meniu div {
+  transition: background 700ms linear;
+}
+
+ul.meniu > li > a {
+  transition: box-shadow 0.5s linear;
+}
+
+ul.meniu > li > a:hover {
+  box-shadow: 0px 0px 10px white inset;
+}
+
+nav ul.meniu > li li a:before {
+  display: inline-block;
+  content: "\2192";
+  color: white;
+  transform: translateX(-50px);
+  transition: transform 0.5s ease;
+  color: var(--main-bg-color);
+}
+
+nav ul.meniu > li li a:hover:before {
+  transform: translateX(0px);
+  color: #fff;
+}
+
+/*deschidere submeniu*/
+nav ul.meniu > li:hover > ul {
+  display: block;
+  animation-name: aparitie_meniu;
+  animation-iteration-count: 1;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  transform-origin: 50% 0;
+}
+
+#hamburger {
+  display: none;
+  height: var(--inaltime-meniu);
+}
+#ch-menu {
+  display: none;
+}
+#hamburger img {
+  height: 100%;
+  width: auto;
+}
+
+@keyframes aparitie_meniu {
+  0% {
+    opacity: 0;
+    transform: scale(0, 0);
+  }
+  50% {
+    transform: scale(0.5, 1);
+  }
+  100% {
+    opacity: 1;
+
+    transform: scale(1, 1);
+  }
+}
