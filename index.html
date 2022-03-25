@@ -37,8 +37,14 @@
       name="msapplication-config"
       content="./resurse/ico/browserconfig.xml"
     />
-    <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="./resurse/css/nav.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./resurse/css/nav.css" type="text/css" />
+    <link rel="stylesheet" href="./resurse/css/style.css" type="text/css" />
     <link
       rel="stylesheet"
       href="./resurse/css/nav-500.css"
@@ -48,15 +54,20 @@
   </head>
 
   <body>
-    <header id="top">
-      <h1>Supercars</h1>
+    <header>
+      <h1>Supercars <i class="fa-solid fa-car"></i></h1>
       <nav>
         <label id="hamburger" for="ch-menu">
           <img src="resurse/imagini/Hamburger_icon_alb.png" alt="menu" />
         </label>
         <input id="ch-menu" type="checkbox" />
         <ul class="meniu">
-          <li><a href="index.html">Acasa</a></li>
+          <li>
+            <a href="index.html" id="nav-acasa-txt">Acasa</a>
+            <a href="index.html" id="nav-acasa-icon"
+              ><i class="fa-solid fa-house"></i
+            ></a>
+          </li>
           <li class="menu-masini">
             <div>Masini</div>
             <ul class="submeniu animated">
@@ -72,25 +83,12 @@
       </nav>
     </header>
 
-    <main>
+    <main class="main">
       <section id="welcome">
         <h2>Bine ati venit!</h2>
         <p>
           Descopera <b>masina sport</b> care se potriveste cel mai bine stilului
           tau de viata! Oferim cele mai noi si rare supercaruri.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
-          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
-          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
-          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
-          libero. Donec at turpis accumsan, semper dui a, viverra elit. Maecenas
-          vel est sagittis ipsum pellentesque convallis. Nulla ipsum urna,
-          facilisis eget scelerisque in, tempus eu sem. Vivamus at nisl eget
-          turpis facilisis luctus. Orci varius natoque penatibus et magnis dis
-          parturient montes, nascetur ridiculus mus. Aenean ac tellus euismod
-          nibh suscipit maximus sed in metus. Mauris in condimentum nisl, eget
-          tempor nunc.
         </p>
       </section>
 
@@ -175,7 +173,7 @@
       </section>
 
       <section id="mclaren">
-        <h2>McLaren</h2>
+        <h2>McLaren <i class="fa-solid fa-biohazard fa-spin"></i></h2>
         <p>
           <b>McLaren</b> creeaza masini sport luxoase si extrem de performante.
           <b>Supercarul</b> britanic dezvolta motorul celebru de
@@ -279,12 +277,16 @@
     </footer>
 
     <div class="container-go-up-btn">
-      <div class="go-up-btn">
-        <a href="#top">
+      <a href="#">
+        <div class="go-up-btn">
           <div class="go-up-btn-cone"></div>
-        </a>
-      </div>
+        </div>
+      </a>
       <p class="text-informativ">To top</p>
     </div>
+    <script
+      src="https://kit.fontawesome.com/faf97d32df.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

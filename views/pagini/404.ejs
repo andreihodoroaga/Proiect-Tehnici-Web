@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Eroare 404</title>
+    <%- include("../fragmente/head.ejs") %>
+    <style>
+      h1.title-404,
+      .p-404 {
+        text-align: center;
+      }
+      .p-404 {
+        font-size: 1.25rem;
+      }
+      img {
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include("../fragmente/header.ejs") %>
+    <h1 class="title-404">Eroare 404</h1>
+    <img src="/resurse/imagini/error_404.webp" alt="Eroare 404" />
+    <p class="p-404">Pagina cautata nu a putut fi gasita.</p>
+
+    <%- include("../fragmente/footer.ejs") %>
+  </body>
+</html>

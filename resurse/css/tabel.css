@@ -1,0 +1,57 @@
+:root {
+  --main-accent-color: #86c232;
+  --secondary-accent-color: #61892f;
+  --secondary-bg-color: #474b4f;
+}
+
+table {
+  margin: 1rem;
+  border: 2px solid var(--secondary-bg-color);
+  border-collapse: collapse;
+  empty-cells: show;
+  caption-side: bottom;
+  text-align: center;
+  overflow-x: scroll;
+}
+
+table td {
+  padding: 5px;
+}
+
+table th {
+  padding: 7px 10px;
+}
+
+table tr {
+  border-bottom: 2px solid var(--secondary-bg-color);
+}
+
+table td:nth-child(even) {
+  border-left: 2px solid var(--main-accent-color);
+  border-right: 2px solid var(--secondary-accent-color);
+}
+
+.special-td-1 {
+  border-right: 2px solid var(--main-accent-color);
+}
+
+.special-td-2 {
+  border-left: 2px solid var(--main-accent-color);
+  border-right: 2px solid var(--secondary-accent-color);
+}
+
+.special-td-3 {
+  border-right: none;
+}
+
+thead {
+  border-bottom: 3px solid var(--secondary-bg-color);
+}
+
+table tr {
+  transition: box-shadow 0.5s linear;
+}
+
+table tr:hover {
+  box-shadow: inset 0 0 10px var(--secondary-bg-color);
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Despre</title>
+    <%- include("../fragmente/head.ejs") %>
+    <style>
+      img {
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include("../fragmente/header.ejs") %>
+    <h1 class="title-404">Pasiune pentru supercaruri.</h1>
+
+    <video
+      width="1088"
+      height="612"
+      controls
+      poster="/resurse/imagini/rimac_poster.jpg"
+      preload="none"
+    >
+      <source src="/resurse/video/rimac.mp4" type="video/mp4" />
+      <source src="/resurse/video/rimac.mkv" type="video/mkv" />
+      <track
+        label="Romana"
+        kind="subtitles"
+        srclang="ro"
+        src="/resurse/video/tracks/rimac-captions.vtt"
+        default
+      />
+      <track
+        label="English"
+        kind="subtitles"
+        srclang="en"
+        src="/resurse/video/tracks/rimac-captions-en.vtt"
+        default
+      />
+      Your browser does not support the video tag.
+    </video>
+
+    <%- include("../fragmente/footer.ejs") %>
+  </body>
+</html>

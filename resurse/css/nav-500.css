@@ -72,12 +72,3 @@ nav ul.meniu > li li a:before {
     transform: scale(1, 1);
   }
 }
-
-/* @keyframes aparitie_meniu_p_btn {
-  0% {
-    transform: scale(0, 0);
-  }
-  100% {
-    transform: scale(1, 1);
-  }
-} */

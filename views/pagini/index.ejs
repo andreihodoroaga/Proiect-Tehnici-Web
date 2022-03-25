@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ro">
+  <%- include("../fragmente/head.ejs"); %>
+  <body>
+    <head>
+      <%- include("../fragmente/header.ejs"); %>
+      <link rel="stylesheet" href="/resurse/css/galerie.css" />
+      <link rel="stylesheet" href="/resurse/css/tabel.css" />
+      <title>Supercars</title>
+    </head>
+
+    <main class="main">
+      <!-- for print -->
+      <p id="watermark"></p>
+      <p id="banner"></p>
+
+      <!-- welcome section-->
+      <section id="welcome">
+        <h2>Bine ati venit!</h2>
+        <p>
+          Descopera <b>masina sport</b> care se potriveste cel mai bine stilului
+          tau de viata! Oferim cele mai noi si rare supercaruri.
+        </p>
+
+        <!-- <div class="galerie">
+          <% for (let imag of locals.imagini){ %>
+          <figure>
+            <picture>
+              <source srcset="<%- imag.mic %>" media="(max-width: 800px)" />
+              <source srcset="<%- imag.mediu %>" media="(max-width: 1200px)" />
+              <img src="<%-imag.mare%>" alt="text alternativ" />
+            </picture>
+            <figcaption>Descriere</figcaption>
+          </figure>
+          <% } %>
+        </div> -->
+      </section>
+
+      <section class="calendar" style="min-width: 200px; min-height: 200px">
+        <h2>Calendar</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
+          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
+          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
+          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
+          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
+          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
+          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
+          libero.
+        </p>
+      </section>
+
+      <section class="tabel" style="min-width: 200px; min-height: 200px">
+        <h2>Tabel</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
+          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
+          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
+          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
+          libero.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Trimestrul 1</th>
+              <th>Trimestrul 2</th>
+              <th>Trimestrul 3</th>
+              <th>Trimestrul 4</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bugatti</td>
+              <td>3.3</td>
+              <td>6.6</td>
+              <td>3.3</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>Rimac</td>
+              <td colspan="2" class="special-td-1">0</td>
+              <td class="special-td-2">5</td>
+              <td class="special-td-3">7.5</td>
+            </tr>
+            <tr>
+              <td>McLaren</td>
+              <td>3.9</td>
+              <td>2.4</td>
+              <td>2.6</td>
+              <td>2.7</td>
+            </tr>
+            <tr>
+              <td>Ferrari</td>
+              <td>5.4</td>
+              <td>3.9</td>
+              <td>3.8</td>
+              <td>4.5</td>
+            </tr>
+            <tr>
+              <td>Porsche</td>
+              <td>7.4</td>
+              <td>6.9</td>
+              <td>6.8</td>
+              <td>5.5</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <caption>
+              Vanzari trimestriale (in milioane $)
+            </caption>
+          </tfoot>
+        </table>
+      </section>
+
+      <section class="anunturi" style="min-width: 200px; min-height: 200px">
+        <h2>Anunturi</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
+          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
+          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
+          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
+          libero.
+        </p>
+      </section>
+
+      <section class="utilizatori" style="min-width: 200px; min-height: 200px">
+        <h2>Utilizatori</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
+          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
+          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
+          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
+          libero.
+        </p>
+      </section>
+
+      <section class="date" style="min-width: 200px; min-height: 200px">
+        <h2>Date utilizatori</h2>
+        <p>Ip utilizator: <%- locals.ip %></p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
+          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
+          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
+          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
+          libero.
+        </p>
+      </section>
+
+      <section class="date-site" style="min-width: 200px; min-height: 200px">
+        <h2>Date site</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
+          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
+          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
+          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
+          libero.
+        </p>
+      </section>
+
+      <section id="mclaren">
+        <h2>McLaren</h2>
+        <p>
+          <b>McLaren</b> creeaza masini sport luxoase si extrem de performante.
+          <b>Supercarul</b> britanic dezvolta motorul celebru de
+          <i>3994 cc</i> cu variante de 720 sau 765 de <em>cai putere</em>.
+        </p>
+        <p>
+          Gasiti mai multe detalii despre istoria brand-ului pe
+          <a href="https://www.mclaren.com/" target="_blank">www.mclaren.com</a
+          >.
+        </p>
+        <p>
+          Puteti descarca toate detaliile tehnice ale modelului de mai jos
+          <a href="resurse\pdfs\McLaren_int 720S_2019.pdf" download>aici</a>.
+        </p>
+        <figure>
+          <figcaption>McLaren 720s</figcaption>
+          <picture>
+            <source
+              media="(max-width: 600px)"
+              srcset="resurse\imagini\poza_mclaren_300px.jpg"
+            />
+            <source
+              media="(max-width: 1100px)"
+              srcset="resurse\imagini\poza_mclaren_600px.jpg"
+            />
+            <img
+              src="resurse\imagini\poza_mclaren_1000px.jpg"
+              alt="McLaren 720s"
+            />
+          </picture>
+        </figure>
+        <div class="mclaren-iframe iframe">
+          <iframe
+            width="600px"
+            height="450px"
+            src="https://www.youtube.com/embed/dbrF_NJNXc8"
+            name="mclaren-ifr"
+          >
+          </iframe>
+          <div class="iframe-links">
+            <a
+              target="mclaren-ifr"
+              href="https://www.youtube.com/embed/dbrF_NJNXc8"
+              >Top speed</a
+            >
+            <a
+              target="mclaren-ifr"
+              href="https://www.youtube.com/embed/s34FRqnJ85o"
+              >720 review</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section id="faq">
+        <h3>Faq</h3>
+        <details>
+          <summary>Cui se adreseaza acest site?</summary>
+          <p>Oricarei persoane care vrea sa se bucure de un supercar.</p>
+        </details>
+        <details>
+          <summary>Ce garantie au autovehiculele?</summary>
+          <p>
+            Garantia fiecarui supercar depinde de producator. Gasiti mai multe
+            detalii in lista specificatiilor tehnice a unei masini.
+          </p>
+        </details>
+        <details>
+          <summary>Ce supercar recomandati?</summary>
+          <p>Bugatti, Rimac sau McLaren.</p>
+        </details>
+        <br />
+      </section>
+    </main>
+
+    <%- include("../fragmente/footer.ejs") %>
+
+    <div class="container-go-up-btn">
+      <div class="go-up-btn">
+        <a href="#">
+          <div class="go-up-btn-cone"></div>
+        </a>
+      </div>
+      <p class="text-informativ">To top</p>
+    </div>
+  </body>
+</html>
