@@ -79,16 +79,18 @@ function creeazaImagini() {
 
   obImagini = JSON.parse(buf); //global
 
-  //console.log(obImagini);
+  // console.log(obImagini);
   for (let imag of obImagini.imagini) {
+    // generate small and medium images
     let nume_imag, extensie;
     [nume_imag, extensie] = imag.fisier.split("."); // "abc.de".split(".") ---> ["abc","de"]
     let dim_mic = 150;
 
-    imag.mic = `${obImagini.cale_galerie}/mic/${nume_imag}-${dim_mic}.webp`; //nume-150.webp // "a10" b=10 "a"+b `a${b}`
-    //console.log(imag.mic);
+    imag.mic = `${obImagini.cale_galerie}/mic/${nume_imag}-${dim_mic}.webp`;
+    // console.log(imag.mic);
 
     imag.mare = `${obImagini.cale_galerie}/${imag.fisier}`;
+    // console.log(__dirname + "/" + imag.mare);
     if (!fs.existsSync(imag.mic))
       sharp(__dirname + "/" + imag.mare)
         .resize(dim_mic)
@@ -100,6 +102,25 @@ function creeazaImagini() {
       sharp(__dirname + "/" + imag.mare)
         .resize(dim_mediu)
         .toFile(__dirname + "/" + imag.mediu);
+
+    // sar imaginile care nu au ora curenta in intervalul de timp (imag.timp)
+    let dateObj = new Date();
+    let currentHour = dateObj.getHours();
+    [imagStartTime, imagEndTime] = imag.timp.split("-");
+    [imagStartTime, imagEndTime] = [
+      imagStartTime.split(":")[0],
+      imagEndTime.split(":")[0],
+    ];
+    [imagStartTime, imagEndTime] = [
+      parseInt(imagStartTime),
+      parseInt(imagEndTime),
+    ];
+
+    if (!(currentHour >= imagStartTime && currentHour <= imagEndTime)) {
+      obImagini.imagini = obImagini.imagini.filter(function (imagine) {
+        return imagine.titlu != imag.titlu;
+      });
+    }
   }
 }
 creeazaImagini();

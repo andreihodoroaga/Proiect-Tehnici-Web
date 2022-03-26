@@ -1,0 +1,10 @@
+:root {
+  --captions-bg-color: rgba(30, 30, 30, 0.5);
+  --captions-text-color: #fff;
+}
+
+video::cue {
+  background-color: var(--captions-bg-color);
+  color: var(--captions-text-color);
+  text-shadow: 1px 1px var(--captions-bg-color);
+}

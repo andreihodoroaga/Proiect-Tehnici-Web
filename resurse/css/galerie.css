@@ -1,17 +1,113 @@
+:root {
+  --main-accent-color: #86c232;
+  --figcaption-bg-color: rgb(82, 75, 75);
+}
+
 .galerie {
   display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "fig-0"
+    "fig-1"
+    "fig-2"
+    "fig-3"
+    "fig-4"
+    "fig-5"
+    "fig-6"
+    "fig-7"
+    "fig-8"
+    "fig-9";
   place-content: center;
   border: 2px solid white;
+  padding: 1rem 2rem;
+  counter-reset: figcaption-counter;
 }
 
-@media only screen and (min-width: 600px) {
+.galerie figure {
+  transition: all 1.25s linear;
+  text-align: center;
+}
+
+.galerie figure:hover {
+  transform: translateY(-36px) scale(1.3);
+}
+
+.galerie figure:hover > figcaption {
+  background-color: var(--figcaption-bg-color);
+  color: var(--main-accent-color);
+}
+
+.galerie figcaption::before {
+  counter-increment: figcaption-counter;
+  content: counter(figcaption-counter, lower-alpha) ". ";
+}
+
+@media only screen and (min-width: 550px) {
   .galerie {
     grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "fig-0 fig-1"
+      "fig-2 fig-3"
+      "fig-4 fig-5"
+      "fig-6 fig-7"
+      "fig-8 fig-9";
   }
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1200px) {
   .galerie {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      "fig-0 fig-1 fig-2 fig-3"
+      "fig-4 . . fig-5"
+      "fig-6 fig-7 fig-8 fig-9";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
+}
+
+.fig-0 {
+  grid-area: fig-0;
+}
+
+.fig-1 {
+  grid-area: fig-1;
+}
+
+.fig-2 {
+  grid-area: fig-2;
+}
+
+.fig-3 {
+  grid-area: fig-3;
+}
+
+.fig-4 {
+  grid-area: fig-4;
+}
+
+.fig-5 {
+  grid-area: fig-5;
+}
+
+.fig-6 {
+  grid-area: fig-6;
+}
+
+.fig-7 {
+  grid-area: fig-7;
+}
+
+.fig-8 {
+  grid-area: fig-8;
+}
+
+.fig-9 {
+  grid-area: fig-9;
+}
+
+.fig-10 {
+  grid-area: fig-10;
+}
+
+.fig-11 {
+  grid-area: fig-12;
 }

@@ -2,32 +2,78 @@
   "cale_galerie": "resurse/imagini/galerie",
   "imagini": [
     {
-      "fisier": "briose-frisca.png",
-      "descriere": "Brioșe"
+      "fisier": "black_mclaren.jpg",
+      "titlu": "Black McLaren",
+      "descriere": "Black McLaren",
+      "timp": "07:00-23:00",
+      "autor": "Ana Marcu",
+      "license": "CC BY 2.0"
     },
     {
-      "fisier": "clatite.png",
-      "descriere": "Clătite cu dulceață"
+      "fisier": "bugatti.jpg",
+      "titlu": "Bugatti",
+      "descriere": "Bugatti",
+      "timp": "07:00-23:00"
     },
     {
-      "fisier": "gogosi.png",
-      "descriere": "Gogoși glazurate"
+      "fisier": "blue_mclaren.jpg",
+      "titlu": "Blue McLaren",
+      "descriere": "Blue McLaren",
+      "timp": "07:00-23:00"
     },
     {
-      "fisier": "tort-scortisoara.png",
-      "descriere": "Tort cu scorțisoară"
+      "fisier": "crazy_lambo.jpg",
+      "titlu": "Insane Lambo",
+      "descriere": "Insane Lamborghini",
+      "timp": "07:00-23:00"
     },
     {
-      "fisier": "prajitura-ciocolata.png",
-      "descriere": "Prăjitură cu ciocolată"
+      "fisier": "grey_ferrari.jpg",
+      "titlu": "Grey Ferrari",
+      "descriere": "Grey Ferrari",
+      "timp": "07:00-23:00"
     },
     {
-      "fisier": "tarta-afine.png",
-      "descriere": "Tartă cu afine"
+      "fisier": "grey_lambo.jpg",
+      "titlu": "Grey Lambo",
+      "descriere": "Grey Lamborghini",
+      "timp": "07:00-23:00"
     },
     {
-      "fisier": "tort-trandafiri.png",
-      "descriere": "Tort special"
+      "fisier": "mclaren_merc.jpg",
+      "titlu": "McLaren and Mercedes",
+      "descriere": "McLaren and Mercedes",
+      "timp": "07:00-23:00"
+    },
+    {
+      "fisier": "orange_pagani.jpg",
+      "titlu": "Orange Pagani",
+      "descriere": "Orange Pagani",
+      "timp": "07:00-23:00"
+    },
+    {
+      "fisier": "porsche.jpg",
+      "titlu": "Porsche",
+      "descriere": "Porsche",
+      "timp": "07:00-23:00"
+    },
+    {
+      "fisier": "pagani.jpg",
+      "titlu": "Pagani",
+      "descriere": "Pagani",
+      "timp": "07:00-23:00"
+    },
+    {
+      "fisier": "white_ferrari.jpg",
+      "titlu": "White Ferrari",
+      "descriere": "White Ferrari",
+      "timp": "07:00-23:00"
+    },
+    {
+      "fisier": "white_mclaren.jpg",
+      "titlu": "White McLaren",
+      "descriere": "White McLaren",
+      "timp": "07:00-23:00"
     }
   ]
 }

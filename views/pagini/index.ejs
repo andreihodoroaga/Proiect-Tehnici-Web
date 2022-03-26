@@ -22,18 +22,7 @@
           tau de viata! Oferim cele mai noi si rare supercaruri.
         </p>
 
-        <!-- <div class="galerie">
-          <% for (let imag of locals.imagini){ %>
-          <figure>
-            <picture>
-              <source srcset="<%- imag.mic %>" media="(max-width: 800px)" />
-              <source srcset="<%- imag.mediu %>" media="(max-width: 1200px)" />
-              <img src="<%-imag.mare%>" alt="text alternativ" />
-            </picture>
-            <figcaption>Descriere</figcaption>
-          </figure>
-          <% } %>
-        </div> -->
+        <%- include("../fragmente/galerie.ejs"); %>
       </section>
 
       <section class="calendar" style="min-width: 200px; min-height: 200px">
