@@ -1,0 +1,123 @@
+@charset "UTF-8";
+nav {
+  height: 3rem;
+  width: 100%;
+  top: 0;
+  padding: 0;
+  background: #222629;
+  z-index: 10;
+  position: sticky;
+}
+nav ul,
+nav li {
+  padding: 0;
+  margin: 0;
+}
+nav ul.meniu ul {
+  display: none;
+  position: absolute;
+  width: 100%;
+}
+nav ul.meniu > li {
+  float: left;
+  width: 150px;
+  position: relative;
+}
+nav ul.meniu > li a {
+  transition: box-shadow 0.5s linear;
+}
+nav ul.meniu > li a:hover {
+  box-shadow: 0px 0px 10px white inset;
+}
+nav ul.meniu > li li a:before {
+  display: inline-block;
+  content: "→";
+  color: white;
+  transform: translateX(-30px);
+  transition: transform 0.5s ease;
+  color: #222629;
+}
+nav ul.meniu > li li a:hover:before {
+  transform: translateX(0px);
+  color: #fff;
+}
+nav ul.meniu > li li:hover ul {
+  display: block;
+  animation-name: aparitie_meniu;
+  animation-iteration-count: 1;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  transform-origin: 50% 0;
+}
+nav ul.meniu li {
+  text-align: center;
+  list-style-type: none;
+  background: #222629;
+  cursor: pointer;
+}
+nav ul.meniu li a,
+nav ul.meniu li div {
+  text-decoration: none;
+  color: white;
+  display: block;
+  font-weight: bold;
+  height: 3rem;
+  line-height: 3rem;
+  outline: 1px solid black;
+}
+nav ul.meniu a,
+nav ul.meniu div {
+  transition: background 700ms linear;
+}
+nav ul.meniu a:hover,
+nav ul.meniu div:hover {
+  background: #61892f;
+}
+@media only screen and (max-width: 900px) {
+  nav {
+    font-size: 0.85rem;
+  }
+}
+
+#hamburger {
+  display: none;
+  height: 3rem;
+}
+
+#ch-menu {
+  display: none;
+}
+
+#hamburger img {
+  height: 100%;
+  width: auto;
+}
+
+@keyframes aparitie_meniu {
+  0% {
+    opacity: 0;
+    transform: scale(0, 0);
+  }
+  50% {
+    transform: scale(0.5, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+}
+#nav-acasa-icon {
+  display: none;
+}
+@media only screen and (max-width: 900px) {
+  #nav-acasa-icon {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  #nav-acasa-txt {
+    display: none;
+  }
+}

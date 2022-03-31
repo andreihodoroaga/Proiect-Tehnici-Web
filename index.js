@@ -3,6 +3,18 @@ const fs = require("fs");
 const sharp = require("sharp");
 const { Client } = require("pg");
 const res = require("express/lib/response");
+const ejs = require("ejs");
+const sass = require("sass");
+
+var client = new Client({
+  database: "ceva",
+  user: "andreih",
+  password: "andreih",
+  host: "localhost",
+  port: 5432,
+});
+
+client.connect();
 
 app = express();
 
@@ -15,6 +27,23 @@ console.log("Director proiect:", __dirname);
 app.get(["/", "/index", "/home"], function (req, res) {
   //res.sendFile(__dirname+"/index1.html");
   res.render("pagini/index", { ip: req.ip, imagini: obImagini.imagini });
+});
+
+app.get("/produse", function (req, res) {
+  client.query("select * from supercars", function (err, rezQuery) {
+    console.log(err);
+    res.render("pagini/produse", { produse: rezQuery.rows });
+  });
+});
+
+app.get("/produs/:id", function (req, res) {
+  client.query(
+    `select * from supercars where id = ${req.params.id}`,
+    function (err, rezQuery) {
+      console.log(err);
+      res.render("pagini/produs", { prod: rezQuery.rows[0] });
+    }
+  );
 });
 
 app.get("/eroare", function (req, res) {
@@ -33,6 +62,29 @@ app.get("/despre", function(req, res){
     res.render("pagini/despre");
 })
 */
+
+// Cod galerie animata
+app.get("*/galerie-animata.css", function (req, res) {
+  var sirScss = fs
+    .readFileSync(__dirname + "/resurse/scss/galerie_animata.scss")
+    .toString("utf8");
+  var culoareAleatoare = "navy";
+  rezScss = ejs.render(sirScss, { culoare: culoareAleatoare });
+
+  var caleScss = __dirname + "/temp/galerie_animata.scss";
+  fs.writeFileSync(caleScss, rezScss);
+  try {
+    rezCompilare = sass.compile(caleScss, { sourceMap: true });
+
+    var caleCss = __dirname + "/temp/galerie_animata.css";
+    fs.writeFileSync(caleCss, rezCompilare.css);
+    res.setHeader("Content-Type", "text/css");
+    res.sendFile(caleCss);
+  } catch (err) {
+    console.log(err);
+    res.send("Eroare");
+  }
+});
 
 app.get("/ceva", function (req, res, next) {
   res.write("<p style='color:pink'>Salut-1</p>");
