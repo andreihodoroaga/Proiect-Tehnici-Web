@@ -10,12 +10,22 @@ const crypto = require("crypto");
 const session = require("express-session");
 const { fileURLToPath } = require("url");
 
+// var client = new Client({
+//   database: "ceva",
+//   user: "andreih",
+//   password: "andreih",
+//   host: "localhost",
+//   port: 5432,
+// });
 var client = new Client({
-  database: "ceva",
-  user: "andreih",
-  password: "andreih",
-  host: "localhost",
+  database: "d96i4j6sfrbrpv",
+  user: "rbddjrnoyuqbhz",
+  password: "e6883a66c0f33399c84bdf6a73d3b1995a903f9cc208c1df453b4e24d7918fc7",
+  host: "ec2-34-197-84-74.compute-1.amazonaws.com",
   port: 5432,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 client.connect();
@@ -26,13 +36,13 @@ app.set("view engine", "ejs");
 
 app.use("/resurse", express.static(__dirname + "/resurse"));
 
-app.use("/*", function (req, res, next) {
-  res.locals.categorii = optiuniMeniu;
-  //console.log(`res.locals.categorii : \ntype = ${typeof res.locals.categorii}`);
-  // res.locals.propGenerala="Ceva care se afiseaza pe toate pag";
+// app.use("/*", function (req, res, next) {
+//   res.locals.categorii = optiuniMeniu;
+//   //console.log(`res.locals.categorii : \ntype = ${typeof res.locals.categorii}`);
+//   // res.locals.propGenerala="Ceva care se afiseaza pe toate pag";
 
-  next();
-});
+//   next();
+// });
 
 console.log("Director proiect:", __dirname);
 
