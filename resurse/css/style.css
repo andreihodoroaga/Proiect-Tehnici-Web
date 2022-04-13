@@ -1,10 +1,18 @@
-:root {
+body {
   --main-bg-color: #222629;
   --secondary-bg-color: #474b4f;
   --main-text-color: rgb(243, 243, 243);
   --secondary-text-color: #6b6e70;
   --main-accent-color: #86c232;
   --secondary-accent-color: #61892f;
+}
+
+body.dark {
+  --main-bg-color: rgb(243, 243, 243);
+  --secondary-text-color: #2c2e31;
+  --main-text-color: #222629;
+  --main-accent-color: #61892f;
+  --secondary-accent-color: #86c232;
 }
 
 /* General styles */

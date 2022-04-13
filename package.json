@@ -2,6 +2,8 @@
   "dependencies": {
     "ejs": "^3.1.6",
     "express": "^4.17.3",
+    "express-session": "^1.17.2",
+    "formidable": "^2.0.1",
     "node-sass": "^7.0.1",
     "pg": "^8.7.3",
     "sass": "^1.49.9",
@@ -13,7 +15,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scss": "node-sass --watch resurse/scss -o resurse/css"
+    "scss": "node-sass --watch resurse/scss -o resurse/css",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -31,5 +34,8 @@
   "bugs": {
     "url": "https://github.com/andreihodoroaga/Proiect-Tehnici-Web/issues"
   },
-  "homepage": "https://github.com/andreihodoroaga/Proiect-Tehnici-Web#readme"
+  "homepage": "https://github.com/andreihodoroaga/Proiect-Tehnici-Web#readme",
+  "engines": {
+    "node": "16.x"
+  }
 }

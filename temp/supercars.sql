@@ -5,7 +5,7 @@ CREATE TYPE categ_supercar AS ENUM('editie limitata', 'clasic', 'custom', 'exoti
 CREATE TYPE branduri_supercar AS ENUM('Bugatti', 'Lamborghini', 'Rimac', 'Porsche', 'Ferrari', 'McLaren');
 
 
-CREATE TABLE IF NOT EXISTS prajituri (
+CREATE TABLE IF NOT EXISTS supercars (
    id serial PRIMARY KEY,
    nume VARCHAR(50) UNIQUE NOT NULL,
    descriere TEXT,

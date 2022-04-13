@@ -13,7 +13,7 @@
     <main class="main">
       <!-- for print -->
       <p id="watermark"></p>
-      <p id="banner"></p>
+      <p id="banner">Banner</p>
 
       <!-- welcome section-->
       <section id="welcome">
@@ -22,6 +22,8 @@
           Descopera <b>masina sport</b> care se potriveste cel mai bine stilului
           tau de viata! Oferim cele mai noi si rare supercaruri.
         </p>
+
+        <p><button id="btn_tema">Schimba tema</button></p>
 
         <%- include("../fragmente/galerie.ejs"); %>
       </section>
@@ -208,26 +210,6 @@
         </div>
       </section>
 
-      <div class="galerie-a" id="galerie-animata">
-        <% for (let [index, imag] of locals.imagini.entries()){ %>
-        <figure class="<%= `fig-${index}` %>" title="<%= imag.descriere %>">
-          <picture>
-            <source srcset="<%- imag.mic %>" media="(max-width: 750px)" />
-            <source srcset="<%- imag.mediu %>" media="(max-width: 1600px)" />
-            <img
-              src="<%- imag.mare %>"
-              alt="<%- imag.alt ? imag.alt : imag.descriere  %>"
-            />
-          </picture>
-          <figcaption>
-            <%- imag.titlu ? imag.titlu : "Masina" %> <%- imag.autor ? ", de " +
-            imag.autor : "" %> <%- imag.license ? " sub licenta " + imag.license
-            : "" %>
-          </figcaption>
-        </figure>
-        <% } %>
-      </div>
-
       <!-- <section id="faq">
         <h3>Faq</h3>
         <details>
@@ -248,6 +230,22 @@
         <br />
       </section> -->
     </main>
+
+    <section id="sectiune-galerie-animata">
+      <h2>Galerie animata</h2>
+      <div id="galerie-animata" class="galerie-a">
+        <% for (let imag of locals.imagini){ %>
+        <figure>
+          <picture>
+            <!-- il ia pe primul care se potriveste cu query-ul din media-->
+            <source srcset="/<%-imag.mic%>" media="(max-width:700px)" />
+            <img src="/<%-imag.mare%>" alt="text" />
+          </picture>
+          <figcaption><%-imag.descriere%></figcaption>
+        </figure>
+        <% } %>
+      </div>
+    </section>
 
     <%- include("../fragmente/footer.ejs") %>
 

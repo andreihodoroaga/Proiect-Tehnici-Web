@@ -5,6 +5,10 @@ const { Client } = require("pg");
 const res = require("express/lib/response");
 const ejs = require("ejs");
 const sass = require("sass");
+const formidable = require("formidable");
+const crypto = require("crypto");
+const session = require("express-session");
+const { fileURLToPath } = require("url");
 
 var client = new Client({
   database: "ceva",
@@ -21,6 +25,14 @@ app = express();
 app.set("view engine", "ejs");
 
 app.use("/resurse", express.static(__dirname + "/resurse"));
+
+app.use("/*", function (req, res, next) {
+  res.locals.categorii = optiuniMeniu;
+  //console.log(`res.locals.categorii : \ntype = ${typeof res.locals.categorii}`);
+  // res.locals.propGenerala="Ceva care se afiseaza pe toate pag";
+
+  next();
+});
 
 console.log("Director proiect:", __dirname);
 
@@ -65,17 +77,27 @@ app.get("/despre", function(req, res){
 
 // Cod galerie animata
 app.get("*/galerie-animata.css", function (req, res) {
+  /* TO DO
+    citim in sirScss continutul fisierului galerie_animata.scss
+    setam culoare aleatoare din vectorul culori=["navy","black","purple","grey"]
+    in variabila rezScss compilam codul ejs din sirScss
+    scriu rezScss in galerie-animata.scss din folderul temp 
+    compilez scss cu sourceMap:true
+    scriu rezultatul in "temp/galerie-animata.css"
+    setez headerul Content-Type
+    trimit fisierul css
+  */
   var sirScss = fs
     .readFileSync(__dirname + "/resurse/scss/galerie_animata.scss")
     .toString("utf8");
-  var culoareAleatoare = "navy";
-  rezScss = ejs.render(sirScss, { culoare: culoareAleatoare });
+  var nrPoze = 5 + Math.floor((Math.random() * 8) / 2) * 2;
+
+  rezScss = ejs.render(sirScss, { nrPoze: 7 });
 
   var caleScss = __dirname + "/temp/galerie_animata.scss";
   fs.writeFileSync(caleScss, rezScss);
   try {
     rezCompilare = sass.compile(caleScss, { sourceMap: true });
-
     var caleCss = __dirname + "/temp/galerie_animata.css";
     fs.writeFileSync(caleCss, rezCompilare.css);
     res.setHeader("Content-Type", "text/css");
@@ -84,6 +106,10 @@ app.get("*/galerie-animata.css", function (req, res) {
     console.log(err);
     res.send("Eroare");
   }
+});
+
+app.get("*/galerie-animata.css.map", function (req, res) {
+  res.sendFile(path.join(__dirname, "temp/galerie-animata.css.map"));
 });
 
 app.get("/ceva", function (req, res, next) {
@@ -212,5 +238,25 @@ function randeazaEroare(res, identificator, titlu, text, imagine) {
   }
 }
 
-app.listen(8080);
+// --------- utilizatori ----------
+parolaServer = "tehniciweb";
+app.post("/inreg", function (req, res) {
+  var formular = new formidable.IncomingForm();
+  formular.parse(req, function (err, campuriText, campuriFisier) {
+    console.log(campuriText);
+    var parolaCriptata = crypto
+      .scryptSync(campuriText.parola, parolaServer, 64)
+      .toString("hex");
+    var comandaInserare = `insert into utilizatori (username, nume, prenume, parola, email, culoare_chat) values ('${campuriText.username}', '${campuriText.nume}', '${campuriText.prenume}', '${parolaCriptata}', '${campuriText.email}', '${campuriText.culoare_chat}')`;
+    client.query(comandaInserare, function (err, rezInserare) {
+      if (err) console.log(err);
+    });
+    res.send("ok");
+  });
+});
+
+var s_port = process.env.PORT || 8080;
+app.listen(s_port);
+
+// app.listen(8080);
 console.log("A pornit");

@@ -31,19 +31,6 @@ table td:nth-child(even) {
   border-right: 2px solid var(--secondary-accent-color);
 }
 
-.special-td-1 {
-  border-right: 2px solid var(--main-accent-color);
-}
-
-.special-td-2 {
-  border-left: 2px solid var(--main-accent-color);
-  border-right: 2px solid var(--secondary-accent-color);
-}
-
-.special-td-3 {
-  border-right: none;
-}
-
 thead {
   border-bottom: 3px solid var(--secondary-bg-color);
 }
