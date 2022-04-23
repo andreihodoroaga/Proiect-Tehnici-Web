@@ -1,16 +1,7 @@
 <!DOCTYPE html>
 <html lang="ro">
   <head>
-    <meta
-      name="description"
-      content="Cofetaria Dulcelind ofera prajituri, torturi, produse de patiserie cu optiunea de achizitie online si livrare prin curier."
-    />
-    <meta
-      name="keywords"
-      content="cofetarie, Dulcelind, prajituri, torturi, dulce, pateuri, produse"
-    />
-
-    <title>Cofetăria Dulcelind - home</title>
+    <title>Supercar - produs</title>
     <%- include("../fragmente/head") %>
     <link href="/resurse/css/produs.css" type="text/css" rel="stylesheet" />
   </head>
@@ -19,10 +10,16 @@
 
     <main>
       <section>
-        <h2>Pagină produs</h2>
+        <h2>Pagina produs</h2>
         <article id="art-produs">
           <h3><span class="nume"><%- locals.prod.nume %></span></h3>
-          <p>Pret: <span class="pret"><%- locals.prod.pret %> </span></p>
+          <p class="brand">
+            Brand: <span class="val-brand"><%- prod.brand %></span>
+          </p>
+          <p>
+            Pret:
+            <span class="pret"><%- locals.prod.pret.slice(0, -3) %>$</span>
+          </p>
           <p>
             Descriere:
             <span class="descriere"><%- locals.prod.descriere %> </span>
@@ -33,11 +30,30 @@
           </p>
           <p>
             Decapotabil:
-            <span class="decapotabil"><%- locals.prod.decapotabil %> </span>
+            <span class="decapotabil"
+              ><%- locals.prod.decapotabil ? "da" : "nu" %>
+            </span>
+          </p>
+          <p class="capacitate-cilindrica">
+            Capacitate cilindrica:
+            <span class="val-capacitate-cilindrica"
+              ><%- prod.capacitate_cilindrica %> cm<sup>3</sup></span
+            >
+          </p>
+          <p class="tuning">
+            Optiuni tuning:
+            <span class="val-optiuni-tuning"
+              ><%- prod.optiuni_tuning.length != 0 ?
+              prod.optiuni_tuning.join(",") : "nu are"%></span
+            >
           </p>
           <p>
             Data adăugare:
-            <span class="data_adaugare"><%- locals.prod.data_adaugare %> </span>
+            <span class="data_adaugare"
+              ><%- locals.prod.data_adaugare.toLocaleDateString('ro-RO', {
+              weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+              %>
+            </span>
           </p>
           <figure class="imag-produs">
             <img
