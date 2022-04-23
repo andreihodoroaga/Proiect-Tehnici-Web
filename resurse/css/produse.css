@@ -1,0 +1,134 @@
+main {
+  --padd-main: 1rem;
+  --primary-accent-color: #94d33b;
+  --secondary-accent-color: #61892f;
+  --produs-accent-color: #505a46;
+  padding-left: var(--padd-main);
+  padding-right: var(--padd-main);
+}
+
+.grid-produse {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media screen and (max-width: 900px) {
+  .grid-produse {
+    display: block;
+  }
+}
+
+.grid-produse .produs {
+  border-radius: 2rem;
+  box-shadow: 0px 0px 0.8rem 0.3rem grey;
+  overflow: hidden;
+}
+
+.grid-produse .produs h3 {
+  background-color: var(--secondary-accent-color);
+  text-align: center;
+  margin-top: 0;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.grid-produse .produs h3 a {
+  color: black;
+}
+.grid-produse .produs h3 a:hover {
+  color: white;
+}
+.grid-produse .produs figure {
+  text-align: center;
+}
+.grid-produse .produs figure img {
+  border: 1px solid grey;
+}
+.grid-produse .produs .info-prod {
+  padding: 0 1rem;
+  background-color: var(--produs-accent-color);
+}
+.grid-produse .produs .info-prod p {
+  font-weight: bold;
+}
+
+.grid-produse .produs p.categorie,
+.grid-produse .produs p.descriere {
+  text-align: center;
+  font-weight: bold;
+}
+
+.grid-produse .produs p.descriere {
+  margin-top: 0;
+}
+
+.info-produse {
+  background-color: var(--produs-accent-color);
+  padding: 0.2rem;
+  box-shadow: 0px 0px 0.5rem 0.15rem grey;
+}
+
+.produs {
+  position: relative;
+}
+
+.produs-flexbox {
+  display: flex;
+  gap: 1rem;
+}
+
+.produs-flexbox .col-1,
+.produs-flexbox .col-2 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.val-capacitate-cilindrica {
+  font-style: italic;
+  font-size: 0.875rem;
+}
+
+.selecteaza-cos {
+  display: inline-block;
+  background-color: var(--primary-accent-color);
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 0.3rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.selecteaza-cos:hover {
+  background-color: var(--produs-accent-color);
+  border: 1px solid var(--primary-accent-color);
+}
+
+/* Filtre */
+.filtre {
+  width: fit-content;
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid var(--primary-accent-color);
+}
+
+.label-noutati {
+  color: var(--primary-accent-color);
+}
+
+.textarea-label {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+textarea {
+  height: 1.25rem;
+}

@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html lang="ro">
-  <%- include("../fragmente/head.ejs"); %>
+  <head>
+    <%- include("../fragmente/head.ejs"); %>
+    <link rel="stylesheet" href="/resurse/css/galerie.css" />
+    <link rel="stylesheet" href="/resurse/css/tabel.css" />
+    <link rel="stylesheet" href="/resurse/css/galerie-animata.css" />
+    <title>Supercars</title>
+  </head>
   <body>
-    <head>
-      <%- include("../fragmente/header.ejs"); %>
-      <link rel="stylesheet" href="/resurse/css/galerie.css" />
-      <link rel="stylesheet" href="/resurse/css/tabel.css" />
-      <link rel="stylesheet" href="/resurse/css/galerie-animata.css" />
-      <title>Supercars</title>
-    </head>
-
+    <%- include("../fragmente/header.ejs"); %>
     <main class="main">
       <!-- for print -->
       <p id="watermark"></p>
       <p id="banner">Banner</p>
-
       <!-- welcome section-->
       <section id="welcome">
         <h2>Bine ati venit!</h2>
@@ -24,8 +22,44 @@
         </p>
 
         <p><button id="btn_tema">Schimba tema</button></p>
-
-        <%- include("../fragmente/galerie.ejs"); %>
+        <% if(!locals.utilizator) { %>
+        <form
+          id="form_inreg"
+          method="post"
+          class="date"
+          action="/login"
+          enctype="multipart/form-data"
+        >
+          <p>
+            <label>
+              Username:
+              <input
+                type="text"
+                name="username"
+                id="inp-username"
+                value="prof<%= Math.floor(Math.random()*100000) %>"
+                required
+                pattern="[A-Za-z0-9]+"
+              />
+            </label>
+          </p>
+          <p>
+            <label>
+              Parola:
+              <input
+                id="parl"
+                type="password"
+                required
+                name="parola"
+                value=""
+              />
+            </label>
+          </p>
+          <p>
+            <input type="submit" value="Logare" />
+          </p>
+        </form>
+        <% } %> <%- include("../fragmente/galerie.ejs"); %>
       </section>
 
       <section class="calendar" style="min-width: 200px; min-height: 200px">

@@ -67,44 +67,34 @@
   animation-delay: 18s;
 }
 
-/*cum calculam timpii:
-- avem 7 poze; vrem pentru fiecare un timp de afisare de 1.5 secunde si o trecere spre urmatoarea poza de 1.5 secunde
-- rezulta 3 secunde pentru fiecare imagine
-- 7imagini * 3secunde =21 secunde in total pentru animatie (animation-duration) si fiecare poza cu un delay = 3* numarul de ordine
-- momentul in care trebuie ascunsa poza si pusa in spatele celorlalte (ca sa isi astepte randul pentru noua animatie:
-il calculam cu formula  timp_afisare(normal+trecerea la urmatoarea poza)/timp_total*100 = 3/21*100 =  14.285714(aproximativ)
-100%..... 21s
-x%........3s
-
-- calculam 100-14.285714=85.714286 - la acest moment imaginea trebuie sa se vada in spatele imaginii care se afiseaza in mod curent (ca sa se vada si cat timp se realizeaza efectul de schimbare a imaginii
-*/
 @keyframes animatie {
   0% {
-    z-index: 10;
+    z-index: 8;
     opacity: 1;
   }
-  7.142857% {
+  7.1428571429% {
     clip-path: circle(75% at 50% 50%);
   }
-  12% {
+  13.3928571429% {
     opacity: 1;
     transform: rotate(0deg);
     clip-path: circle(25% at 50% 50%);
   }
-  14.285714% {
+  14.2857142857% {
     z-index: 10;
     opacity: 0;
+    clip-path: circle(0% at 50% 50%);
     transform: rotate(180deg);
   }
-  14.285715% {
+  14.2867142857% {
     z-index: -10;
     transform: rotate(0deg);
   }
-  85.714287% {
+  85.7142857143% {
     opacity: 0;
     z-index: -10;
   }
-  85.714288% {
+  85.7142857143% {
     z-index: 0;
   }
   100% {
