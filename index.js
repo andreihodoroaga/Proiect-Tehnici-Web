@@ -1,6 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const sharp = require("sharp");
+const path = require("path");
 const { Client } = require("pg");
 const res = require("express/lib/response");
 const ejs = require("ejs");
@@ -42,19 +43,33 @@ async function trimiteMail(
   console.log("trimis mail");
 }
 
+const obGlobal = {
+  obImagini: null,
+  obErori: null,
+  emailServer: "andreihodoroagaproiect@gmail.com",
+  protocol: null,
+  numeDomeniu: null,
+  port: 8080,
+  sirAlphaNum: "",
+};
+
 if (process.env.SITE_ONLINE) {
+  obGlobal.protocol = "https://";
+  obGlobal.numeDomeniu = "floating-earth-91056.herokuapp.com";
   var client = new Client({
-    database: "d96i4j6sfrbrpv",
-    user: "rbddjrnoyuqbhz",
+    database: "ddl79c5s37vdrg",
+    user: "qzqucoccjhgisf",
     password:
-      "e6883a66c0f33399c84bdf6a73d3b1995a903f9cc208c1df453b4e24d7918fc7",
-    host: "ec2-34-197-84-74.compute-1.amazonaws.com",
+      "2ebe44ef014e628f3a672fca87314e00000bda6c24406b9bb093fa97714c5cae",
+    host: "ec2-23-20-224-166.compute-1.amazonaws.com",
     port: 5432,
     ssl: {
       rejectUnauthorized: false,
     },
   });
 } else {
+  obGlobal.protocol = "http://";
+  obGlobal.numeDomeniu = "localhost:" + obGlobal.port;
   var client = new Client({
     database: "ceva",
     user: "andreih",
@@ -65,12 +80,6 @@ if (process.env.SITE_ONLINE) {
 }
 
 client.connect();
-
-const obGlobal = {
-  obImagini: null,
-  obErori: null,
-  emailServer: "andreihodoroagaproiect@gmail.com",
-};
 
 app = express();
 
@@ -291,6 +300,28 @@ function randeazaEroare(res, identificator, titlu, text, imagine) {
 }
 
 // --------- utilizatori ----------
+
+var intervaleAscii = [
+  [48, 57],
+  [65, 90],
+  [97, 122],
+];
+for (let interval of intervaleAscii) {
+  for (let i = interval[0]; i <= interval[1]; i++)
+    obGlobal.sirAlphaNum += String.fromCharCode(i);
+}
+
+function genereazaToken(n) {
+  var token = "";
+  for (let i = 0; i < n; i++) {
+    token +=
+      obGlobal.sirAlphaNum[
+        Math.floor(Math.random() * obGlobal.sirAlphaNum.length)
+      ];
+  }
+  return token;
+}
+
 parolaServer = "tehniciweb";
 app.post("/inreg", function (req, res) {
   var formular = new formidable.IncomingForm();
@@ -312,10 +343,11 @@ app.post("/inreg", function (req, res) {
             err: "Eroare:" + eroare,
           });
         } else {
+          var token = genereazaToken(100);
           var parolaCriptata = crypto
             .scryptSync(campuriText.parola, parolaServer, 64)
             .toString("hex");
-          var comandaInserare = `insert into utilizatori (username, nume, prenume, parola, email, culoare_chat) values ('${campuriText.username}', '${campuriText.nume}', '${campuriText.prenume}', '${parolaCriptata}', '${campuriText.email}', '${campuriText.culoare_chat}')`;
+          var comandaInserare = `insert into utilizatori (username, nume, prenume, parola, email, culoare_chat, cod) values ('${campuriText.username}', '${campuriText.nume}', '${campuriText.prenume}', '${parolaCriptata}', '${campuriText.email}', '${campuriText.culoare_chat}', '${token}')`;
           client.query(comandaInserare, function (err, rezInserare) {
             if (err) {
               console.log(err);
@@ -326,11 +358,12 @@ app.post("/inreg", function (req, res) {
               res.render("pagini/inregistrare", {
                 raspuns: "Datele au fost introduse",
               });
+              let linkConfirmare = `${obGlobal.protocol}${obGlobal.numeDomeniu}/cod/${campuriText.username}/${token}`;
               trimiteMail(
                 campuriText.email,
                 "Te-ai inregistrat",
                 "mesaj text",
-                "<h1>Salut!</h1><p style='color:blue'>Username-ul tau este ${username}.</p>"
+                `<h1>Salut!</h1><p style='color:blue'>Username-ul tau este ${campuriText.username}.</p><p>Link confirmare: <a href='${linkConfirmare}'>${linkConfirmare}</a></p>`
               );
             }
           });
@@ -347,15 +380,17 @@ app.post("/inreg", function (req, res) {
 app.post("/login", function (req, res) {
   var formular = new formidable.IncomingForm();
   formular.parse(req, function (err, campuriText, campuriFisier) {
+    console.log(campuriText);
     var parolaCriptata = crypto
       .scryptSync(campuriText.parola, parolaServer, 64)
       .toString("hex");
-    var querySelect = `select * from utilizatori where username=${campuriText.username} and parola=${parolaCriptata}`;
+    var querySelect = `select * from utilizatori where username='${campuriText.username}' and parola='${parolaCriptata}' and confirmat_mail=true`;
+    console.log(querySelect);
     client.query(querySelect, function (err, rezSelect) {
       if (err) console.log(err);
       else {
         if (rezSelect.rows.length == 1) {
-          // daca am utilizatorul si a dat credentiale corecte
+          //daca am utilizatorul si a dat credentiale corecte
           req.session.utilizator = {
             nume: rezSelect.rows[0].nume,
             prenume: rezSelect.rows[0].prenume,
@@ -364,17 +399,38 @@ app.post("/login", function (req, res) {
             culoare_chat: rezSelect.rows[0].culoare_chat,
             rol: rezSelect.rows[0].rol,
           };
+          res.redirect("/index");
         }
-        res.redirect("/index");
       }
     });
+  });
+});
+
+app.get("/cod/:username/:token", function (req, res) {
+  var comandaSelect = `update utilizatori set confirmat_mail=true where username='${req.params.username}' and cod='${req.params.token}'`;
+  client.query(comandaSelect, function (err, rezUpdate) {
+    if (err) {
+      console.log(err);
+      randeazaEroare(res, 2);
+    } else {
+      if (rezUpdate.rowCount == 1) {
+        res.render("pagini/confirmare");
+      } else {
+        randeazaEroare(
+          res,
+          2,
+          "Eroare link confirmare",
+          "Nu e userul sau linkul corect"
+        );
+      }
+    }
   });
 });
 
 app.get("/logout", function (req, res) {
   req.session.destroy();
   res.locals.utilizator = null;
-  res.render("pagini/logouts");
+  res.render("pagini/logout");
 });
 
 app.get("/*", function (req, res) {
@@ -397,7 +453,7 @@ app.get("/*", function (req, res) {
   res.end();
 });
 
-var s_port = process.env.PORT || 8080;
+var s_port = process.env.PORT || obGlobal.port;
 app.listen(s_port);
 
 // app.listen(8080);

@@ -31,11 +31,13 @@
       <li><a href="/despre">Despre</a></li>
       <li><a href="/inregistrare">Inregistrare</a></li>
       <% if(locals.utilizator) { %>
-      <li><div><%- locals.utilizator.username %></div></li>
-      <ul>
-        <li><a href="/profil">Profil</a></li>
-        <li><a href="/logout">Logout</a></li>
-      </ul>
+      <li>
+        <div><%- locals.utilizator.username %></div>
+        <ul>
+          <li><a href="/profil">Profil</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </li>
       <% } %>
     </ul>
   </nav>
