@@ -8,7 +8,10 @@ window.addEventListener("DOMContentLoaded", function () {
   }
   btn = document.getElementById("btn_tema");
   if (btn) {
-    btn.onclick = function () {
+    btn.onclick = function (e) {
+      var icon = btn.children[0];
+      icon.classList.toggle("fa-sun");
+      icon.classList.toggle("fa-moon");
       document.body.classList.toggle("dark");
       if (document.body.classList.contains("dark"))
         localStorage.setItem("tema", "dark");

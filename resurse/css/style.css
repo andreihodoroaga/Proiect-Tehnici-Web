@@ -107,6 +107,13 @@ nav > ul {
   z-index: 10;
 }
 
+#btn_tema {
+  background-color: var(--main-accent-color);
+  padding: 4px 6px;
+  outline: none;
+  cursor: pointer;
+}
+
 /* main */
 .main {
   width: 100%;

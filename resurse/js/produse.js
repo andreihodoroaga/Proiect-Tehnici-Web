@@ -202,4 +202,21 @@ window.onload = function () {
       }
     }
   };
+
+  var checkboxuri = document.getElementsByClassName("selecteaza-cos");
+  for (let ch of checkboxuri) {
+    ch.onchange = function () {
+      if (this.checked) {
+        let iduriCos = localStorage.getItem("produse-cos");
+        if (iduriCos) {
+          iduriCos = iduriCos.split(",");
+        } else {
+          iduriCos = [];
+        }
+        iduriCos.push();
+      }
+      iduriCos.push(this.value);
+      localStorage.setItem("cos_virtual", iduriCos.join(","));
+    };
+  }
 };

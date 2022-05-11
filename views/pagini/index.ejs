@@ -5,7 +5,17 @@
     <link rel="stylesheet" href="/resurse/css/galerie.css" />
     <link rel="stylesheet" href="/resurse/css/tabel.css" />
     <link rel="stylesheet" href="/resurse/css/galerie-animata.css" />
+    <link rel="stylesheet" href="/resurse/css/bootstrap.min.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
     <title>Supercars</title>
+    <script
+      src="https://kit.fontawesome.com/2d2f6d4846.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <%- include("../fragmente/header.ejs"); %>
@@ -21,7 +31,8 @@
           tau de viata! Oferim cele mai noi si rare supercaruri.
         </p>
 
-        <p><button id="btn_tema">Schimba tema</button></p>
+        <button id="btn_tema"><i class="fa-solid fa-sun fa-2x"></i></button>
+
         <% if(!locals.utilizator) { %>
         <form
           id="form_inreg"
@@ -59,7 +70,9 @@
             <input type="submit" value="Logare" />
           </p>
         </form>
-        <% } %> <%- include("../fragmente/galerie.ejs"); %>
+        <% } %>
+        <p style="color: rgb(243, 142, 142)"><%- locals.mesajLogin %></p>
+        <%- include("../fragmente/galerie.ejs"); %>
       </section>
 
       <section class="calendar" style="min-width: 200px; min-height: 200px">
@@ -156,13 +169,13 @@
 
       <section class="utilizatori" style="min-width: 200px; min-height: 200px">
         <h2>Utilizatori</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis
-          erat, congue tincidunt justo elementum, efficitur vulputate nulla.
-          Fusce fermentum ligula ut porta egestas. Vestibulum faucibus commodo
-          felis, et tincidunt felis scelerisque in. Pellentesque ut facilisis
-          libero.
-        </p>
+        <% if(locals.utiliz_online) { %>
+        <ul>
+          <% for (let u of locals.utiliz_online) { %>
+          <li"><%- u.username %>(<%- u.nume %>)</li>
+          <% } %>
+        </ul>
+        <% } %>
       </section>
 
       <section class="date" style="min-width: 200px; min-height: 200px">
