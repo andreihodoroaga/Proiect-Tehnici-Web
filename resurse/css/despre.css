@@ -1,0 +1,16 @@
+.produse-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  gap: 1.5rem;
+}
+
+.produse-card img {
+  display: inline-block;
+  width: 100%;
+}
+
+.produse-card h5,
+.produse-card p {
+  color: rgb(41, 39, 39);
+}

@@ -17,7 +17,8 @@
           "<%= locals.utilizator.prenume %>";
         document.getElementById("inp-email").value =
           "<%= locals.utilizator.email %>";
-        document.getElementById("p-reintrod").remove();
+        document.getElementById("p-reintrod").childNodes[1].innerHTML =
+          'Parola noua: <input id="rparl" type="password" name="rparola" value="" required />';
         var optiuni = document.getElementById("sel-culoare").options;
         for (let opt of optiuni)
           if (opt.value == "<%= locals.utilizator.culoare_chat %>")
@@ -30,8 +31,7 @@
     <main>
       <section>
         <h2>Profil</h2>
-        <p>Mănânci prea multe prajituri și știi și tu asta!</p>
-        <p><%= locals.raspuns %></p>
+        <p style="color: rgb(98, 98, 231)"><%= locals.mesaj %></p>
       </section>
       <%- include("../fragmente/formular",{action:"/profil"}) %>
     </main>

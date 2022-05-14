@@ -136,8 +136,10 @@ app.use(function (req, res, next) {
 app.get("/*", function (req, res, next) {
   let id_utiliz = req.session.utilizator ? req.session.utilizator.id : null;
   if (id_utiliz) {
-    let queryInsert = `insert into accesari(ip, user_id, pagina) values ('${getIp(req)}', '${id_utiliz}', '${req.url}')`;
-    
+    let queryInsert = `insert into accesari(ip, user_id, pagina) values ('${getIp(
+      req
+    )}', '${id_utiliz}', '${req.url}')`;
+
     client.query(queryInsert, function (err, rezQuery) {
       if (err) console.log(err);
     });
@@ -152,12 +154,12 @@ function stergeAccesariVechi() {
   });
 }
 stergeAccesariVechi();
-setInterval(stergeAccesariVechi, 10 * 60 * 1000);
+setInterval(stergeAccesariVechi, 60 * 60 * 1000);
 
 app.get(["/", "/index", "/home"], function (req, res) {
   //res.sendFile(__dirname+"/index1.html");
   querySelect =
-    "select username, nume from utilizatori where utilizatori.id in (select distinct user_id from accesari where now() - data_accesare <= interval '5 minutes')";
+    "select username, nume, data_adaugare from utilizatori where utilizatori.id in (select distinct user_id from accesari where now() - data_accesare <= interval '7 minutes')";
 
   client.query(querySelect, function (err, rezQuery) {
     let utiliz_online = [];
@@ -182,7 +184,9 @@ app.get("/produse", function (req, res) {
       client.query(
         "select * from supercars where " + cond_where,
         function (err, rezQuery) {
-          console.log(err);
+          if (err) {
+            console.log(err);
+          }
           res.render("pagini/produse", {
             produse: rezQuery.rows,
             optiuni: rezCateg.rows,
@@ -194,13 +198,16 @@ app.get("/produse", function (req, res) {
 });
 
 app.get("/produs/:id", function (req, res) {
-  client.query(
-    `select * from supercars where id = ${req.params.id}`,
-    function (err, rezQuery) {
-      console.log(err);
-      res.render("pagini/produs", { prod: rezQuery.rows[0] });
-    }
-  );
+  // select * from supercars where id = ${req.params.id}
+  var queryProdus = {
+    name: "produs-query",
+    text: "select * from supercars where id = $1::integer",
+    values: [req.params.id],
+  };
+  client.query(queryProdus, function (err, rezQuery) {
+    console.log(err);
+    res.render("pagini/produs", { prod: rezQuery.rows[0] });
+  });
 });
 
 app.get("/eroare", function (req, res) {
@@ -227,7 +234,7 @@ app.get("*/galerie-animata.css", function (req, res) {
     .toString("utf8");
   var nrPoze = 5 + Math.floor((Math.random() * 8) / 2) * 2;
 
-  rezScss = ejs.render(sirScss, { nrPoze: 7 });
+  rezScss = ejs.render(sirScss, { nrPoze: nrPoze });
 
   var caleScss = __dirname + "/temp/galerie_animata.scss";
   fs.writeFileSync(caleScss, rezScss);
@@ -261,7 +268,12 @@ app.get("/ceva", function (req, res, next) {
 });
 
 app.get("/despre", function (req, res) {
-  res.render("pagini/despre");
+  client.query("select * from supercars", function (err, rezQuery) {
+    if (err) {
+      console.log(err);
+    }
+    res.render("pagini/despre", { produse: rezQuery.rows });
+  });
 });
 
 function creeazaImagini() {
@@ -358,8 +370,8 @@ function randeazaEroare(res, identificator, titlu, text, imagine) {
 
 var intervaleAscii = [
   [48, 57],
-  [65, 90],
-  [97, 122],
+  [97, 102],
+  [114, 122],
 ];
 for (let interval of intervaleAscii) {
   for (let i = interval[0]; i <= interval[1]; i++)
@@ -367,7 +379,9 @@ for (let interval of intervaleAscii) {
 }
 
 function genereazaToken(n) {
-  var token = "";
+  var d = Math.floor(new Date().getTime() / 1000);
+
+  var token = d;
   for (let i = 0; i < n; i++) {
     token +=
       obGlobal.sirAlphaNum[
@@ -377,33 +391,95 @@ function genereazaToken(n) {
   return token;
 }
 
+function generateString(length) {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  let result = "";
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
 parolaServer = "tehniciweb";
 app.post("/inreg", function (req, res) {
   var username;
-  var formular = new formidable.IncomingForm();
+  var formular = new formidable.IncomingForm({
+    uploadDir: path.join(__dirname, "user_pics"),
+    keepExtensions: true,
+  });
   formular.parse(req, function (err, campuriText, campuriFisier) {
     var eroare = "";
     if (campuriText.username == "") {
       eroare += "Username necompletat. ";
     }
-    if (!campuriText.username.match(new RegExp("[A-Za-z0-9]+$"))) {
+    if (
+      !campuriText.username.match(
+        new RegExp("[A-Za-z][A-Za-z0-9]{0,5}[0-9][0-9][0-9][0-9]$")
+      )
+    ) {
       eroare += "Username nu corespunde patternului. ";
     }
+    if (campuriText.nume == "") {
+      eroare += "Nume necompletat. ";
+    }
+    if (campuriText.prenume == "") {
+      eroare += "Prenume necompletat. ";
+    }
+    if (campuriText.parola == "") {
+      eroare += "Parola necompletata. ";
+    }
+    if (campuriText.rparola == "") {
+      eroare += "Campul de reintrocere parola necompletat. ";
+    }
+    if (campuriText.email == "") {
+      eroare += "Email necompletat. ";
+    }
+    // 2 alte validari
+    if (!campuriText.email.includes("@"))
+      eroare += "Introduceti un email valid. ";
+    if (campuriText.nume.length >= 100 || campuriText.prenume.length >= 100)
+      eroare += "Numele si prenumele pot avea maxim 100 de caractere. ";
     if (!eroare) {
-      queryUtiliz = `select username from utilizatori where username='${campuriText.username}'`;
+      // queryUtiliz = `select username from utilizatori where username='${campuriText.username}'`;
+      queryUtiliz = {
+        name: "query-check-username",
+        text: "select username from utilizatori where username=$1::text",
+        values: [campuriText.username],
+      };
       client.query(queryUtiliz, function (err, rezUtiliz) {
         if (err) console.log(err);
         if (rezUtiliz.rows.length != 0) {
           eroare += "Username-ul mai exista. ";
           res.render("pagini/inregistrare", {
-            err: "Eroare:" + eroare,
+            err: "Eroare: " + eroare,
           });
         } else {
-          var token = genereazaToken(100);
+          var nrRandomIntre40si50 = Math.floor(Math.random() * 10 + 40);
+          var token = genereazaToken(nrRandomIntre40si50);
           var parolaCriptata = crypto
             .scryptSync(campuriText.parola, parolaServer, 64)
             .toString("hex");
-          var comandaInserare = `insert into utilizatori (username, nume, prenume, parola, email, culoare_chat, cod) values ('${campuriText.username}', '${campuriText.nume}', '${campuriText.prenume}', '${parolaCriptata}', '${campuriText.email}', '${campuriText.culoare_chat}', '${token}')`;
+          var tema_site = campuriText.tema_site
+            ? campuriText.tema_site
+            : "dark";
+          var comandaInserare = `insert into utilizatori (username, nume, prenume, parola, email, culoare_chat, cod, tema_site, imagine) values ('${campuriText.username}', '${campuriText.nume}', '${campuriText.prenume}', '${parolaCriptata}', '${campuriText.email}', '${campuriText.culoare_chat}', '${token}', '${tema_site}', '${campuriFisier.poza.newFilename}')`;
+          var comandaInserare = {
+            name: "query-insert-user",
+            text: "insert into utilizatori (username, nume, prenume, parola, email, culoare_chat, cod, tema_site, imagine) values ($1::text, $2::text, $3::text, $4::text, $5::text, $6::text, $7::text, $8::text, $9::text)",
+            values: [
+              campuriText.username,
+              campuriText.nume,
+              campuriText.prenume,
+              parolaCriptata,
+              campuriText.email,
+              campuriText.culoare_chat,
+              token,
+              tema_site,
+              campuriFisier.poza.newFilename,
+            ],
+          };
+
           client.query(comandaInserare, function (err, rezInserare) {
             if (err) {
               console.log(err);
@@ -419,7 +495,8 @@ app.post("/inreg", function (req, res) {
                 campuriText.email,
                 "Te-ai inregistrat",
                 "mesaj text",
-                `<h1>Salut!</h1><p style='color:blue'>Username-ul tau este ${campuriText.username}.</p><p>Link confirmare: <a href='${linkConfirmare}'>${linkConfirmare}</a></p>`
+                `<h2>Salut ${campuriText.nume} ${campuriText.prenume}!</h2><p>Te-ai inregistrat pe site-ul <a href="http://${obGlobal.numeDomeniu}">Supercars</a> cu username-ul <i>${campuriText.username}</i>.</p>
+                  <p>Link confirmare: <a href='${linkConfirmare}'>${linkConfirmare}</a></p>`
               );
             }
           });
@@ -427,35 +504,38 @@ app.post("/inreg", function (req, res) {
       });
     } else {
       res.render("pagini/inregistrare", {
-        err: "Eroare:" + eroare,
+        err: "Eroare: " + eroare,
       });
     }
   });
 
-  formular.on("field", function (nume, val) {
-    if (nume == "username") username = val;
-  });
-  formular.on("fileBegin", function (nume, fisier) {
-    caleUtiliz = path.join(__dirname, "poze_uploadate");
-    if (!fs.existsSync(caleUtiliz)) {
-      fs.mkdirSync(caleUtiliz);
-    }
-    fisier.filepath = path.join(caleUtiliz, fisier.originalFilename);
-  });
-  formular.on("file", function (nume, fisier) {
-    //3
-  });
+  // formular.on("field", function (nume, val) {
+  //   if (nume == "username") username = val;
+  // });
+  // formular.on("fileBegin", function (nume, fisier) {
+  //   caleUtiliz = path.join(__dirname, "poze_uploadate");
+  //   if (!fs.existsSync(caleUtiliz)) {
+  //     fs.mkdirSync(caleUtiliz);
+  //   }
+  //   fisier.filepath = path.join(caleUtiliz, fisier.originalFilename);
+  // });
+  // formular.on("file", function (nume, fisier) {
+  //3
+  // });
 });
 
 app.post("/login", function (req, res) {
   var formular = new formidable.IncomingForm();
   formular.parse(req, function (err, campuriText, campuriFisier) {
-    console.log(campuriText);
     var parolaCriptata = crypto
       .scryptSync(campuriText.parola, parolaServer, 64)
       .toString("hex");
-    var querySelect = `select * from utilizatori where username='${campuriText.username}' and parola='${parolaCriptata}' and confirmat_mail=true`;
-    // var querySelect = `select * from utilizatori where username='$1::text and parola=$2::text and confirmat_mail=true`;
+    // var querySelect = `select * from utilizatori where username='${campuriText.username}' and parola='${parolaCriptata}' and confirmat_mail=true`;
+    var querySelect = {
+      name: "login-query",
+      text: "select * from utilizatori where username=$1::text and parola=$2::text and confirmat_mail=true",
+      values: [campuriText.username, parolaCriptata],
+    };
     console.log(querySelect);
     client.query(querySelect, function (err, rezSelect) {
       if (err) console.log(err);
@@ -470,6 +550,7 @@ app.post("/login", function (req, res) {
             email: rezSelect.rows[0].email,
             culoare_chat: rezSelect.rows[0].culoare_chat,
             rol: rezSelect.rows[0].rol,
+            tema_site: rezSelect.rows[0].tema_site,
           };
           res.redirect("/index");
         } else {
@@ -507,8 +588,9 @@ app.get("/useri", function (req, res) {
     client.query(
       "select * from utilizatori where rol='comun'",
       function (err, rezQuery) {
-        console.log(err);
-        console.log(rezQuery);
+        if (err) {
+          console.log(err);
+        }
         res.render("pagini/useri", { useri: rezQuery.rows });
       }
     );
@@ -517,13 +599,59 @@ app.get("/useri", function (req, res) {
   }
 });
 
+app.post("/schimba_parola/:user_id", function (req, res) {
+  // seteaza o parola random
+  var parolaNouaUser = generateString(7);
+  var parolaNouaUserCriptata = crypto
+    .scryptSync(parolaNouaUser, parolaServer, 64)
+    .toString("hex");
+  console.log(parolaNouaUser.length, parolaNouaUserCriptata);
+
+  var formular = new formidable.IncomingForm();
+  formular.parse(req, function (err, campuriText, campuriFisier) {
+    if (err) {
+      console.log(err);
+    }
+    let queryUpdatePass = {
+      name: "admin-update-pass",
+      text: "update utilizatori set parola=$1::text where id=$2::integer",
+      values: [parolaNouaUserCriptata, campuriText.id_utiliz],
+    };
+
+    client.query(queryUpdatePass, function (err, rezQuery) {
+      if (err) console.log(err);
+      // mail catre user cu parola noua
+      trimiteMail(
+        campuriText.email_utiliz,
+        "Ti-am schimbat parola ;)",
+        "Acum ai o parola noua.",
+        `<h3>Parola ta noua este ${parolaNouaUser}.</h3>`
+      );
+      res.redirect("/useri");
+    });
+  });
+});
+
 app.post("/sterge_utiliz", function (req, res) {
   var formular = new formidable.IncomingForm();
   formular.parse(req, function (err, campuriText, campuriFisier) {
-    let queryDel = `delete from utilizatori where id=${campuriText.id_utiliz}`;
+    // let queryDel = `delete from utilizatori where id=${campuriText.id_utiliz}`;
+    let queryDel = {
+      name: "delete-user",
+      text: "delete from utilizatori where id=$1::integer",
+      values: [campuriText.id_utiliz],
+    };
+
     client.query(queryDel, function (err, rezQuery) {
-      console.log(err);
+      if (err) console.log(err);
       // TO DO afisare a unui mesaj friendly pentru cazurile de succes si esec
+      var mesajStergereUtiliz = "";
+      if (err) {
+        mesajStergereUtiliz = "Nu s-a putut sterge userul.";
+      } else {
+        mesajStergereUtiliz = `Utilizatorul cu id-ul ${campuriText.id_utiliz} a fost sters cu succes.`;
+      }
+      req.session.mesajStergereUtiliz = mesajStergereUtiliz;
       res.redirect("/useri");
     });
   });
@@ -535,14 +663,35 @@ app.post("/profil", function (req, res) {
     res.render("pagini/eroare_generala", { text: "Nu sunteti logat." });
     return;
   }
-  var formular = new formidable.IncomingForm();
+  var formular = new formidable.IncomingForm({
+    uploadDir: path.join(__dirname, "user_pics"),
+    keepExtensions: true,
+  });
 
   formular.parse(req, function (err, campuriText, campuriFile) {
     var criptareParola = crypto
       .scryptSync(campuriText.parola, parolaServer, 64)
       .toString("hex");
 
-    var queryUpdate = `update utilizatori set nume='${campuriText.nume}', prenume='${campuriText.prenume}', email='${campuriText.email}', culoare_chat='${campuriText.culoare_chat}' where parola='${criptareParola}'`;
+    var parolaCriptataNoua = crypto
+      .scryptSync(campuriText.rparola, parolaServer, 64)
+      .toString("hex");
+    // var queryUpdate = `update utilizatori set nume='${campuriText.nume}', prenume='${campuriText.prenume}', email='${campuriText.email}', culoare_chat='${campuriText.culoare_chat}' where parola='${criptareParola}'`;
+    var queryUpdate = {
+      name: "update-query",
+      text: "update utilizatori set nume=$1::text, prenume=$2::text, parola=$9::text, email=$3::text, culoare_chat=$4::text, tema_site=$7::text, imagine=$8::text where username=$6::text and parola=$5::text",
+      values: [
+        campuriText.nume,
+        campuriText.prenume,
+        campuriText.email,
+        campuriText.culoare_chat,
+        criptareParola,
+        campuriText.username,
+        campuriText.tema_site,
+        campuriFile.poza.newFilename,
+        parolaCriptataNoua,
+      ],
+    };
 
     client.query(queryUpdate, function (err, rez) {
       if (err) {
@@ -564,6 +713,16 @@ app.post("/profil", function (req, res) {
         req.session.utilizator.prenume = campuriText.prenume;
         req.session.utilizator.email = campuriText.email;
         req.session.utilizator.culoare_chat = campuriText.culoare_chat;
+        req.session.utilizator.tema_site = campuriText.tema_site;
+
+        // trimitere mail cu actualizarea
+        trimiteMail(
+          req.session.utilizator.email,
+          "Update profil",
+          "mesaj text",
+          `<h2>Salut ${campuriText.nume} ${campuriText.prenume}!</h2><p>Ti-ai updatat datele pe site-ul 
+            <a href="http://${obGlobal.numeDomeniu}">Supercars</a> cu username-ul <i>${campuriText.username}</i>.</p>`
+        );
       }
 
       res.render("pagini/profil", {
@@ -579,6 +738,73 @@ app.get("/logout", function (req, res) {
   res.render("pagini/logout");
 });
 
+// ------------- administrare -------------
+app.get("/administrare", function (req, res) {
+  if (req.session.utilizator && req.session.utilizator.rol == "admin") {
+    client.query("select * from supercars", function (err, rezQuery) {
+      if (err) {
+        console.log(err);
+      }
+      res.render("pagini/administrare", {
+        produse: rezQuery.rows,
+      });
+    });
+  } else {
+    randeazaEroare(res, 403);
+  }
+});
+
+app.post("/sterge_produs/:prod_id", function (req, res) {
+  var formular = new formidable.IncomingForm();
+  formular.parse(req, function (err, campuriText, campuriFisier) {
+    let queryDel = {
+      name: "delete-product",
+      text: "delete from supercars where id=$1::integer",
+      values: [campuriText.id_produs],
+    };
+
+    client.query(queryDel, function (err, rezQuery) {
+      if (err) console.log(err);
+      res.redirect("/administrare");
+    });
+  });
+});
+
+app.get("/privacy_policy", function (req, res) {
+  res.render("pagini/privacy_policy");
+});
+
+app.get("/terms", function (req, res) {
+  res.render("pagini/terms");
+});
+
+app.get("/sterge_cont", function (req, res) {
+  if (req.session.utilizator) {
+    res.render("pagini/sterge_cont");
+  } else {
+    randeazaEroare(res, 403);
+  }
+});
+
+app.post("/stergere_cont", function (req, res) {
+  var formular = new formidable.IncomingForm();
+  formular.parse(req, function (err, campuriText, campuriFisier) {
+    parolaCriptata = crypto
+      .scryptSync(campuriText.parola_stergere, parolaServer, 64)
+      .toString("hex");
+    let queryDel = {
+      name: "delete-account",
+      text: "delete from utilizatori where id=$1::integer and parola=$2::text",
+      values: [req.session.utilizator.id, parolaCriptata],
+    };
+
+    client.query(queryDel, function (err, rezQuery) {
+      if (err) console.log(err);
+      res.redirect("/logout");
+    });
+  });
+});
+
 app.get("/*", function (req, res) {
   res.render("pagini" + req.url, function (err, rezRender) {
     if (err) {
@@ -590,7 +816,6 @@ app.get("/*", function (req, res) {
         res.render("pagini/eroare_generala");
       }
     } else {
-      console.log(rezRender);
       res.send(rezRender);
     }
   });

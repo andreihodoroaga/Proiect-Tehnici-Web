@@ -33,45 +33,6 @@
 
         <button id="btn_tema"><i class="fa-solid fa-sun fa-2x"></i></button>
 
-        <% if(!locals.utilizator) { %>
-        <form
-          id="form_inreg"
-          method="post"
-          class="date"
-          action="/login"
-          enctype="multipart/form-data"
-        >
-          <p>
-            <label>
-              Username:
-              <input
-                type="text"
-                name="username"
-                id="inp-username"
-                value="prof<%= Math.floor(Math.random()*100000) %>"
-                required
-                pattern="[A-Za-z0-9]+"
-              />
-            </label>
-          </p>
-          <p>
-            <label>
-              Parola:
-              <input
-                id="parl"
-                type="password"
-                required
-                name="parola"
-                value=""
-              />
-            </label>
-          </p>
-          <p>
-            <input type="submit" value="Logare" />
-          </p>
-        </form>
-        <% } %>
-        <p style="color: rgb(243, 142, 142)"><%- locals.mesajLogin %></p>
         <%- include("../fragmente/galerie.ejs"); %>
       </section>
 
@@ -172,7 +133,11 @@
         <% if(locals.utiliz_online) { %>
         <ul>
           <% for (let u of locals.utiliz_online) { %>
-          <li"><%- u.username %>(<%- u.nume %>)</li>
+          <li
+            title="<%- Math.round((new Date() - new Date(u.data_adaugare)) / (1000 * 60 * 60 * 24)) %> zile de la adaugare"
+          >
+            <%- u.username %>(<%- u.nume %>)
+          </li>
           <% } %>
         </ul>
         <% } %>

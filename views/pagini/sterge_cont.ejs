@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ro">
+  <head>
+    <%- include("../fragmente/head") %>
+    <link rel="stylesheet" href="/resurse/css/produse.css" type="text/css" />
+    <title>Supercaruri - stergere cont</title>
+  </head>
+  <body>
+    <%- include("../fragmente/header") %>
+    <br />
+    <form
+      id="form_stergere_cont"
+      method="post"
+      action="/stergere_cont"
+      enctype="multipart/form-data"
+    >
+      <p>
+        <label>
+          Introduceti parola pentru a sterge contul:
+          <br />
+          <br />
+          <input
+            id="parola_stergere"
+            type="password"
+            required
+            name="parola_stergere"
+            value=""
+          />
+        </label>
+      </p>
+      <button type="submit">Sterge cont</button>
+    </form>
+    <br />
+    <%- include("../fragmente/footer") %>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 <script>
   var tema = localStorage.getItem("tema");
   if (!tema) {
-    localStorage.setItem("tema", "light");
+    localStorage.setItem("tema", "dark");
   } else {
     if (tema == "dark") document.body.classList.add("dark");
   }
@@ -24,7 +24,12 @@
               ><%= optiune.unnest %></a
             >
           </li>
-          <% } %>
+          <% } %> <% if(locals.utilizator) { %> <% if(locals.utilizator.rol ==
+          "admin") { %>
+          <li>
+            <a href="/administrare">Administrare</a>
+          </li>
+          <% } %> <% } %>
         </ul>
       </li>
       <li><a href="/cos">Cos</a></li>
@@ -36,10 +41,46 @@
         <ul>
           <li><a href="/profil">Profil</a></li>
           <li><a href="/logout">Logout</a></li>
+          <form>
+            <li><a href="/sterge_cont">Sterge cont</a></li>
+          </form>
         </ul>
       </li>
       <% } %>
       <li><a href="/useri">Useri</a></li>
     </ul>
   </nav>
+  <% if(!locals.utilizator) { %>
+  <form
+    id="form_inreg"
+    method="post"
+    class="date"
+    action="/login"
+    enctype="multipart/form-data"
+  >
+    <p>
+      <label>
+        Username:
+        <input
+          type="text"
+          name="username"
+          id="inp-username"
+          value="prof<%= Math.floor(Math.random()*100000) %>"
+          required
+          pattern="[A-Za-z0-9]+"
+        />
+      </label>
+    </p>
+    <p>
+      <label>
+        Parola:
+        <input id="parl" type="password" required name="parola" value="" />
+      </label>
+    </p>
+    <p>
+      <input type="submit" value="Logare" />
+    </p>
+  </form>
+  <% } %>
+  <p style="color: rgb(243, 142, 142)"><%- locals.mesajLogin %></p>
 </header>

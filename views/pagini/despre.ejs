@@ -5,6 +5,8 @@
     <%- include("../fragmente/head.ejs") %>
     <link rel="stylesheet" href="/resurse/css/video.css" />
     <link rel="stylesheet" href="/resurse/css/galerie-animata.css" />
+    <link rel="stylesheet" href="/resurse/css/despre.css" />
+    <link rel="stylesheet" href="/resurse/css/bootstrap.min.css" />
     <style>
       img {
         display: block;
@@ -41,6 +43,41 @@
       />
       Your browser does not support the video tag.
     </video>
+
+    <h1>Despre produse</h1>
+    <div class="produse-card">
+      <% for( let prod of locals.produse) { %>
+      <div class="card" style="width: 18rem">
+        <img
+          src="/resurse/imagini/produse/<%- prod.imagine %>"
+          class="card-img-top"
+          alt="[imagine <%- prod.nume %>]"
+        />
+        <div class="card-body">
+          <h5 class="card-title"><%- prod.nume %></h5>
+          <p class="card-text"><%- prod.descriere %></p>
+          <a href="/produs/<%-prod.id %>" class="btn btn-primary"
+            >Pagina <%- prod.nume %></a
+          >
+        </div>
+      </div>
+      <% } %>
+    </div>
+    <script>
+      let cards = Array.from(document.getElementsByClassName("card"));
+      cards.forEach((card) => {
+        card.style.display = "none";
+      });
+      let i = 0;
+      const myInterval = setInterval(function () {
+        console.log(i);
+        cards[i].style.display = "block";
+        i += 1;
+        if (i == cards.length) {
+          clearInterval(myInterval);
+        }
+      }, 2000);
+    </script>
 
     <%- include("../fragmente/footer.ejs") %>
   </body>

@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", function () {
   var tema = localStorage.getItem("tema");
   if (!tema) {
     //nu am setat inca o tema
-    localStorage.setItem("tema", "light");
+    localStorage.setItem("tema", "dark");
   } else {
     if (tema == "dark") document.body.classList.add("dark");
   }

@@ -4,7 +4,7 @@
         <meta name="description" content="Cofetaria Dulcelind - înregistrare utilizatori.">
         <meta name="keywords" content="cofetarie, Dulcelind, inregistrare, utilizatori">
         <link rel="stylesheet" href="/resurse/css/produse.css" type="text/css" />
-        <title>Cofetăria Dulcelind - înregistrare </title>
+        <title>Supercars - înregistrare </title>
         <%- include("../fragmente/head") %>     
         <script type="text/javascript" src=/resurse/js/inregistrare.js></script>
     </head>
@@ -23,8 +23,9 @@
 	<%- locals.raspuns+"<br/>"%>
 	<% } %>
 	<% if(locals.err) { %>
-	<%- locals.err %>
+	<p style="color: rgb(200, 95, 95);"><%- locals.err %></p>
 	<% } %>
+    <p>By creating an account you agree with our <a href="/privacy_policy">Privacy Policy</a> and <a href="/terms">Terms and Conditions</a>.</p>
     </div>
 </main>
 
