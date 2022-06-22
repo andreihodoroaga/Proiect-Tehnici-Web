@@ -1,7 +1,19 @@
 body {
-  --inaltime-meniu: 3rem;
   --main-bg-color: #222629;
+  --secondary-bg-color: #474b4f;
+  --main-text-color: rgb(243, 243, 243);
+  --secondary-text-color: #6b6e70;
+  --main-accent-color: #86c232;
   --secondary-accent-color: #61892f;
+  --inaltime-meniu: 3rem;
+}
+
+body.dark {
+  --main-bg-color: rgb(243, 243, 243);
+  --secondary-text-color: #2c2e31;
+  --main-text-color: #222629;
+  --main-accent-color: #61892f;
+  --secondary-accent-color: #86c232;
 }
 
 nav ul.meniu ul {
@@ -45,7 +57,7 @@ nav ul.meniu li {
 nav ul.meniu li a,
 nav ul.meniu li div {
   text-decoration: none;
-  color: white;
+  color: var(--main-text-color);
   display: block;
   font-weight: bold;
   /*inaltimea butonului si inaltimea liniei de text sunt identice 
@@ -76,7 +88,7 @@ ul.meniu > li > a:hover {
 nav ul.meniu > li li a:before {
   display: inline-block;
   content: "\2192";
-  color: white;
+  color: var(--main-text-color);
   transform: translateX(-30px);
   transition: transform 0.5s ease;
   color: var(--main-bg-color);
@@ -84,7 +96,7 @@ nav ul.meniu > li li a:before {
 
 nav ul.meniu > li li a:hover:before {
   transform: translateX(0px);
-  color: #fff;
+  color: var(--main-text-color);
 }
 
 /*deschidere submeniu*/

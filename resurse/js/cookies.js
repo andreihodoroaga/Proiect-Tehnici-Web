@@ -6,9 +6,8 @@ function setCookie(nume, val, timpExp, path = "/") {
   d = new Date();
   d.setTime(new Date().getTime() + timpExp);
   document.cookie = `${nume}=${val}; expires=${d.toUTCString()}; path=${path}`;
-
 }
-setCookie("a", "b", 6000)
+setCookie("a", "b", 6000);
 
 function getCookie(nume) {
   var vectCookies = document.cookie.split(";");

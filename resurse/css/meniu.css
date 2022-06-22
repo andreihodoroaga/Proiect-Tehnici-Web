@@ -1,10 +1,27 @@
 @charset "UTF-8";
+body {
+  --main-bg-color: #222629;
+  --secondary-bg-color: #474b4f;
+  --main-text-color: rgb(243, 243, 243);
+  --secondary-text-color: #6b6e70;
+  --main-accent-color: #86c232;
+  --secondary-accent-color: #61892f;
+}
+
+body.dark {
+  --main-bg-color: rgb(243, 243, 243);
+  --secondary-text-color: #2c2e31;
+  --main-text-color: #222629;
+  --main-accent-color: #61892f;
+  --secondary-accent-color: #86c232;
+}
+
 nav {
   height: 3rem;
   width: 100%;
   top: 0;
   padding: 0;
-  background: #222629;
+  background: var(--main-bg-color);
   z-index: 10;
   position: sticky;
 }
@@ -32,14 +49,14 @@ nav ul.meniu > li a:hover {
 nav ul.meniu > li li a:before {
   display: inline-block;
   content: "→";
-  color: white;
+  color: var(--main-text-color);
   transform: translateX(-30px);
   transition: transform 0.5s ease;
   color: #222629;
 }
 nav ul.meniu > li li a:hover:before {
   transform: translateX(0px);
-  color: #fff;
+  color: var(--main-text-color);
 }
 nav ul.meniu > li li:hover ul {
   display: block;
@@ -53,13 +70,13 @@ nav ul.meniu > li li:hover ul {
 nav ul.meniu li {
   text-align: center;
   list-style-type: none;
-  background: #222629;
+  background: var(--main-bg-color);
   cursor: pointer;
 }
 nav ul.meniu li a,
 nav ul.meniu li div {
   text-decoration: none;
-  color: white;
+  color: var(--main-text-color);
   display: block;
   font-weight: bold;
   height: 3rem;

@@ -43,11 +43,17 @@
                 method="post"
                 action="/schimba_parola/<%-useri[i].id%>"
               >
-                <input type="text" name="id_utiliz" value="<%-useri[i].id %>" />
+                <input
+                  type="text"
+                  name="id_utiliz"
+                  value="<%-useri[i].id %>"
+                  hidden
+                />
                 <input
                   type="text"
                   name="email_utiliz"
-                  value="<%-useri[i].email %>"
+                  value="<%-useri[i].email
+                  %>"
                 />
                 <button type="submit" class="reset-pass-btn">
                   Reseteaza parola
